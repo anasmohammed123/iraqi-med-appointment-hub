@@ -4,26 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
-import { Search } from 'lucide-react';
+import { Search, MapPin, Briefcase, Building } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 
 export const SearchHeroForm = () => {
   const navigate = useNavigate();
+  const [province, setProvince] = useState('');
   const [location, setLocation] = useState('');
   const [specialty, setSpecialty] = useState('');
+  const [insurance, setInsurance] = useState('');
   const [doctorName, setDoctorName] = useState('');
 
-  const areas = ["بغداد - الكرخ", "بغداد - الرصافة", "البصرة", "الموصل", "أربيل", "النجف", "كربلاء"];
+  const provinces = ["بغداد", "البصرة", "أربيل", "الموصل", "النجف", "كربلاء", "صلاح الدين"];
+  const areas = ["الكرخ", "الرصافة", "المنصور", "الكرادة", "الأعظمية", "زيونة", "الكاظمية"];
   const specialties = ["قلب", "عيون", "أطفال", "جلدية", "عظام", "نسائية", "أسنان", "أذن وأنف وحنجرة", "تغذية"];
+  const insuranceCompanies = ["شركة التأمين الوطنية", "شركة الخليج للتأمين", "شركة الرافدين للتأمين", "شركة بغداد للتأمين", "شركة الأمين للتأمين"];
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     
     // بناء المعطيات للبحث
     const searchParams = new URLSearchParams();
+    if (province) searchParams.append('province', province);
     if (location) searchParams.append('location', location);
     if (specialty) searchParams.append('specialty', specialty);
+    if (insurance) searchParams.append('insurance', insurance);
     if (doctorName) searchParams.append('name', doctorName);
     
     // توجيه المستخدم إلى صفحة الأطباء مع معطيات البحث
@@ -33,9 +38,30 @@ export const SearchHeroForm = () => {
   return (
     <Card className="shadow-lg">
       <CardContent className="p-6">
-        <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="location" className="text-gray-800">المنطقة</Label>
+            <Label htmlFor="province" className="text-gray-800 flex items-center gap-1">
+              <MapPin size={16} className="opacity-70" />
+              <span>المحافظة</span>
+            </Label>
+            <select 
+              id="province" 
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+              className="w-full p-2 border rounded-md bg-white text-gray-800"
+            >
+              <option value="">اختر المحافظة</option>
+              {provinces.map((prov) => (
+                <option key={prov} value={prov}>{prov}</option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="location" className="text-gray-800 flex items-center gap-1">
+              <MapPin size={16} className="opacity-70" />
+              <span>المنطقة</span>
+            </Label>
             <select 
               id="location" 
               value={location}
@@ -50,7 +76,10 @@ export const SearchHeroForm = () => {
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="specialty" className="text-gray-800">الاختصاص</Label>
+            <Label htmlFor="specialty" className="text-gray-800 flex items-center gap-1">
+              <Briefcase size={16} className="opacity-70" />
+              <span>الاختصاص</span>
+            </Label>
             <select 
               id="specialty" 
               value={specialty}
@@ -60,6 +89,24 @@ export const SearchHeroForm = () => {
               <option value="">اختر الاختصاص</option>
               {specialties.map((spec) => (
                 <option key={spec} value={spec}>{spec}</option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="insurance" className="text-gray-800 flex items-center gap-1">
+              <Building size={16} className="opacity-70" />
+              <span>شركة التأمين</span>
+            </Label>
+            <select 
+              id="insurance" 
+              value={insurance}
+              onChange={(e) => setInsurance(e.target.value)}
+              className="w-full p-2 border rounded-md bg-white text-gray-800"
+            >
+              <option value="">اختر شركة التأمين</option>
+              {insuranceCompanies.map((company) => (
+                <option key={company} value={company}>{company}</option>
               ))}
             </select>
           </div>

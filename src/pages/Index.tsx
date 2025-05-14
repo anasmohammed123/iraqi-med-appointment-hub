@@ -1,16 +1,9 @@
 
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Select } from "@/components/ui/select";
 import { SearchHeroForm } from "@/components/SearchHeroForm";
 import { SpecialtiesSection } from "@/components/SpecialtiesSection";
 import { HospitalsCarousel } from "@/components/HospitalsCarousel";
@@ -18,12 +11,12 @@ import { FeaturedDoctors } from "@/components/FeaturedDoctors";
 import { OffersSection } from "@/components/OffersSection";
 import { AppPromoSection } from "@/components/AppPromoSection";
 import { FAQSection } from "@/components/FAQSection";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Phone, Star, MapPin, Clock } from "lucide-react";
+import { PharmacyRequestSection } from "@/components/PharmacyRequestSection";
+import { TopMedicalCentersSection } from "@/components/TopMedicalCentersSection";
+import { DoctorsBySpecializationSection } from "@/components/DoctorsBySpecializationSection";
+import { PatientActionsSection } from "@/components/PatientActionsSection";
 
 const Index = () => {
-  const navigate = useNavigate();
-
   // Define the data required for the page
   const [topSpecialties, setTopSpecialties] = useState([
     { id: 1, name: "القلب", count: 120, icon: "❤️" },
@@ -180,6 +173,62 @@ const Index = () => {
     },
   ]);
 
+  const [medicalCenters, setMedicalCenters] = useState([
+    {
+      id: 1,
+      name: "المركز الطبي التخصصي",
+      visits: 1250,
+      rating: 4.8,
+      services: ["أشعة", "مختبر", "عيادات"],
+      imageUrl: "https://placehold.co/400x250/3B82F6/FFFFFF?text=المركز+الطبي+التخصصي"
+    },
+    {
+      id: 2,
+      name: "مركز الرحمة الطبي",
+      visits: 980,
+      rating: 4.5,
+      services: ["أسنان", "جلدية", "عظام"],
+      imageUrl: "https://placehold.co/400x250/3B82F6/FFFFFF?text=مركز+الرحمة+الطبي"
+    },
+    {
+      id: 3,
+      name: "مركز النور التخصصي",
+      visits: 1100,
+      rating: 4.7,
+      services: ["عيون", "أنف وأذن", "قلب"],
+      imageUrl: "https://placehold.co/400x250/3B82F6/FFFFFF?text=مركز+النور+التخصصي"
+    },
+    {
+      id: 4,
+      name: "مركز الحياة الطبي",
+      visits: 850,
+      rating: 4.3,
+      services: ["نساء وولادة", "أطفال"],
+      imageUrl: "https://placehold.co/400x250/3B82F6/FFFFFF?text=مركز+الحياة+الطبي"
+    },
+    {
+      id: 5,
+      name: "مركز الأمل الطبي",
+      visits: 1300,
+      rating: 4.9,
+      services: ["جراحة", "باطنية", "عظام"],
+      imageUrl: "https://placehold.co/400x250/3B82F6/FFFFFF?text=مركز+الأمل+الطبي"
+    }
+  ]);
+
+  const [cardiacDoctors, setCardiacDoctors] = useState([
+    { id: 101, name: "د. محمد السامرائي", specialty: "قلب", rating: 4.9, reviews: 130, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+محمد" },
+    { id: 102, name: "د. فاطمة العلي", specialty: "قلب", rating: 4.8, reviews: 110, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+فاطمة" },
+    { id: 103, name: "د. أحمد الراشد", specialty: "قلب", rating: 4.9, reviews: 122, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+أحمد" },
+    { id: 104, name: "د. نور المالكي", specialty: "قلب", rating: 4.7, reviews: 98, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+نور" },
+    { id: 105, name: "د. حسين محمود", specialty: "قلب", rating: 4.8, reviews: 115, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+حسين" },
+    { id: 106, name: "د. زينب العبيدي", specialty: "قلب", rating: 4.9, reviews: 125, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+زينب" },
+    { id: 107, name: "د. علي الجبوري", specialty: "قلب", rating: 4.6, reviews: 90, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+علي" },
+    { id: 108, name: "د. سارة القيسي", specialty: "قلب", rating: 4.7, reviews: 105, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+سارة" },
+    { id: 109, name: "د. حسن العزاوي", specialty: "قلب", rating: 4.8, reviews: 118, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+حسن" },
+    { id: 110, name: "د. ليلى التميمي", specialty: "قلب", rating: 4.7, reviews: 95, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+ليلى" }
+  ]);
+
   return (
     <div className="min-h-screen flex flex-col dir-rtl">
       <Navbar />
@@ -209,8 +258,20 @@ const Index = () => {
       {/* Featured Doctors Section */}
       <FeaturedDoctors doctors={featuredDoctors} />
       
+      {/* Top Medical Centers Section */}
+      <TopMedicalCentersSection centers={medicalCenters} />
+      
+      {/* Doctors By Specialization Section */}
+      <DoctorsBySpecializationSection doctors={cardiacDoctors} specialization="القلب" />
+      
+      {/* Patient Actions Section */}
+      <PatientActionsSection />
+      
       {/* Promos Section */}
       <OffersSection offers={promos} />
+      
+      {/* Pharmacy Request Section */}
+      <PharmacyRequestSection />
       
       {/* App Promo Section */}
       <AppPromoSection />
