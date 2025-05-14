@@ -19,7 +19,7 @@ const Hospitals = () => {
       name: "مستشفى بغداد التعليمي",
       location: "بغداد",
       specialties: ["قلب", "جراحة عامة", "أطفال"],
-      imageUrl: "https://via.placeholder.com/300x200",
+      imageUrl: "https://placehold.co/600x400/3b82f6/ffffff?text=مستشفى+بغداد",
       rating: 4.5,
     },
     {
@@ -27,7 +27,7 @@ const Hospitals = () => {
       name: "مستشفى ابن سينا",
       location: "بغداد",
       specialties: ["عظام", "أعصاب", "عيون"],
-      imageUrl: "https://via.placeholder.com/300x200",
+      imageUrl: "https://placehold.co/600x400/3b82f6/ffffff?text=مستشفى+ابن+سينا",
       rating: 4.2,
     },
     {
@@ -35,7 +35,7 @@ const Hospitals = () => {
       name: "مستشفى البصرة العام",
       location: "البصرة",
       specialties: ["نساء وتوليد", "أطفال", "باطنية"],
-      imageUrl: "https://via.placeholder.com/300x200",
+      imageUrl: "https://placehold.co/600x400/3b82f6/ffffff?text=مستشفى+البصرة",
       rating: 4.0,
     },
     {
@@ -43,7 +43,7 @@ const Hospitals = () => {
       name: "مستشفى الموصل التخصصي",
       location: "الموصل",
       specialties: ["قلب", "كلى", "سرطان"],
-      imageUrl: "https://via.placeholder.com/300x200",
+      imageUrl: "https://placehold.co/600x400/3b82f6/ffffff?text=مستشفى+الموصل",
       rating: 4.3,
     },
   ]);

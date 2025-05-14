@@ -27,7 +27,6 @@ const DoctorList = () => {
   const [selectedCities, setSelectedCities] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState([0, 100000]);
   const [minRating, setMinRating] = useState(0);
-  const [isFiltersVisible, setIsFiltersVisible] = useState(false);
 
   useEffect(() => {
     filterDoctors();
@@ -101,24 +100,47 @@ const DoctorList = () => {
     setMinRating(0);
   };
 
-  const toggleFiltersVisibility = () => {
-    setIsFiltersVisible(!isFiltersVisible);
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <div className="bg-medical-light py-6 px-4">
-        <div className="medical-container">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">الأطباء في العراق</h1>
-          <p className="text-gray-600">ابحث عن أفضل الأطباء وقم بحجز موعد بسهولة</p>
+      {/* New Hero Section with Search */}
+      <div className="bg-medical-primary/10 py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">الأطباء في العراق</h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">ابحث عن أفضل الأطباء المتخصصين وقم بحجز موعد بسهولة وسرعة</p>
+          </div>
+          
+          {/* Prominent Search Bar */}
+          <div className="max-w-3xl mx-auto">
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5" />
+              <Input
+                type="text"
+                placeholder="ابحث عن طبيب أو تخصص أو مدينة..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pr-4 pl-12 py-6 text-lg border-2 shadow-md rounded-full"
+              />
+              {searchTerm && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setSearchTerm("")}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="medical-container py-8">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Filters - Mobile */}
+          {/* Mobile Filters Button */}
           <div className="lg:hidden mb-4">
             <Sheet>
               <SheetTrigger asChild>
@@ -135,7 +157,7 @@ const DoctorList = () => {
                   </SheetDescription>
                 </SheetHeader>
                 <div className="py-6 space-y-6">
-                  {/* Mobile Filters Content - Same as desktop but with different styling */}
+                  {/* Mobile Filters Content */}
                   <div className="space-y-4">
                     <h3 className="font-semibold text-lg">التخصص الطبي</h3>
                     <div className="space-y-2">
@@ -243,33 +265,9 @@ const DoctorList = () => {
             </Sheet>
           </div>
 
-          {/* Search Bar */}
-          <div className="w-full mb-6">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="ابحث عن طبيب أو تخصص أو مدينة..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pr-3 pl-10 py-6 border-gray-300 dark:border-gray-600 rounded-md w-full"
-              />
-              {searchTerm && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setSearchTerm("")}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              )}
-            </div>
-          </div>
-
           {/* Main Content */}
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* Filters - Desktop */}
+            {/* Desktop Filters */}
             <div className="hidden lg:block w-full max-w-xs">
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border p-6">
                 <div className="flex justify-between items-center mb-6">
@@ -389,7 +387,6 @@ const DoctorList = () => {
                 <h2 className="text-xl font-bold">
                   {filteredDoctors.length} طبيب متاح
                 </h2>
-                {/* Sort options would go here in a real app */}
               </div>
 
               <div className="space-y-6">
@@ -399,7 +396,7 @@ const DoctorList = () => {
                       <div className="flex flex-col md:flex-row">
                         <div className="md:w-1/4">
                           <img
-                            src={doctor.image}
+                            src={`https://placehold.co/400x400/3b82f6/ffffff?text=${doctor.nameAr.charAt(0)}`}
                             alt={doctor.nameAr}
                             className="w-full h-full object-cover object-center md:h-64"
                           />
