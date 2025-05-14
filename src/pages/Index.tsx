@@ -1,241 +1,222 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Select } from "@/components/ui/select";
+import { SearchHeroForm } from "@/components/SearchHeroForm";
+import { SpecialtiesSection } from "@/components/SpecialtiesSection";
+import { HospitalsCarousel } from "@/components/HospitalsCarousel";
+import { FeaturedDoctors } from "@/components/FeaturedDoctors";
+import { OffersSection } from "@/components/OffersSection";
+import { AppPromoSection } from "@/components/AppPromoSection";
+import { FAQSection } from "@/components/FAQSection";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Phone, Star, MapPin, Clock } from "lucide-react";
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  // Define the data required for the page
+  const [topSpecialties, setTopSpecialties] = useState([
+    { id: 1, name: "القلب", count: 120, icon: "❤️" },
+    { id: 2, name: "العيون", count: 90, icon: "👁️" },
+    { id: 3, name: "الأطفال", count: 80, icon: "👶" },
+    { id: 4, name: "الجلدية", count: 70, icon: "🧬" },
+    { id: 5, name: "العظام", count: 65, icon: "🦴" },
+    { id: 6, name: "النسائية", count: 60, icon: "👩" },
+    { id: 7, name: "الأسنان", count: 55, icon: "🦷" },
+    { id: 8, name: "الأذن والأنف والحنجرة", count: 50, icon: "👂" },
+  ]);
+
   const [featuredDoctors, setFeaturedDoctors] = useState([
-    { id: 1, name: "د. أحمد", specialty: "قلب", imageUrl: "https://via.placeholder.com/150" },
-    { id: 2, name: "د. فاطمة", specialty: "عيون", imageUrl: "https://via.placeholder.com/150" },
-    { id: 3, name: "د. علي", specialty: "أطفال", imageUrl: "https://via.placeholder.com/150" },
-    { id: 4, name: "د. سارة", specialty: "جلدية", imageUrl: "https://via.placeholder.com/150" },
+    { id: 1, name: "د. أحمد", specialty: "قلب", rating: 4.9, reviews: 120, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+أحمد" },
+    { id: 2, name: "د. فاطمة", specialty: "عيون", rating: 4.8, reviews: 98, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+فاطمة" },
+    { id: 3, name: "د. علي", specialty: "أطفال", rating: 4.7, reviews: 87, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+علي" },
+    { id: 4, name: "د. سارة", specialty: "جلدية", rating: 4.9, reviews: 110, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+سارة" },
+    { id: 5, name: "د. محمد", specialty: "عظام", rating: 4.6, reviews: 79, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+محمد" },
+    { id: 6, name: "د. زينب", specialty: "نسائية", rating: 4.8, reviews: 95, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+زينب" },
+    { id: 7, name: "د. حسن", specialty: "أسنان", rating: 4.7, reviews: 82, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+حسن" },
+    { id: 8, name: "د. ليلى", specialty: "جلدية", rating: 4.8, reviews: 90, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+ليلى" },
+    { id: 9, name: "د. خالد", specialty: "قلب", rating: 4.9, reviews: 115, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+خالد" },
+    { id: 10, name: "د. نور", specialty: "عيون", rating: 4.7, reviews: 85, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+نور" },
   ]);
 
   const [hospitals, setHospitals] = useState([
-    { id: 1, name: "مستشفى الأمل", imageUrl: "https://via.placeholder.com/300x200" },
-    { id: 2, name: "مستشفى الشفاء", imageUrl: "https://via.placeholder.com/300x200" },
-    { id: 3, name: "مستشفى النور", imageUrl: "https://via.placeholder.com/300x200" },
+    { 
+      id: 1, 
+      name: "مستشفى الأمل", 
+      doctors: 45, 
+      address: "شارع الرشيد، بغداد", 
+      hours: "24 ساعة", 
+      imageUrl: "https://placehold.co/300x200/1E88E5/FFFFFF?text=مستشفى+الأمل" 
+    },
+    { 
+      id: 2, 
+      name: "مستشفى الشفاء", 
+      doctors: 38, 
+      address: "شارع فلسطين، بغداد", 
+      hours: "8 صباحًا - 10 مساءً", 
+      imageUrl: "https://placehold.co/300x200/1E88E5/FFFFFF?text=مستشفى+الشفاء" 
+    },
+    { 
+      id: 3, 
+      name: "مستشفى النور", 
+      doctors: 42, 
+      address: "المنصور، بغداد", 
+      hours: "24 ساعة", 
+      imageUrl: "https://placehold.co/300x200/1E88E5/FFFFFF?text=مستشفى+النور" 
+    },
+    { 
+      id: 4, 
+      name: "مستشفى الرحمة", 
+      doctors: 30, 
+      address: "الكرادة، بغداد", 
+      hours: "8 صباحًا - 8 مساءً", 
+      imageUrl: "https://placehold.co/300x200/1E88E5/FFFFFF?text=مستشفى+الرحمة" 
+    },
+    { 
+      id: 5, 
+      name: "مستشفى الحياة", 
+      doctors: 52, 
+      address: "الأعظمية، بغداد", 
+      hours: "24 ساعة", 
+      imageUrl: "https://placehold.co/300x200/1E88E5/FFFFFF?text=مستشفى+الحياة" 
+    },
+    { 
+      id: 6, 
+      name: "مستشفى السلام", 
+      doctors: 35, 
+      address: "الكاظمية، بغداد", 
+      hours: "7 صباحًا - 11 مساءً", 
+      imageUrl: "https://placehold.co/300x200/1E88E5/FFFFFF?text=مستشفى+السلام" 
+    },
+    { 
+      id: 7, 
+      name: "مستشفى الياسمين", 
+      doctors: 28, 
+      address: "زيونة، بغداد", 
+      hours: "8 صباحًا - 9 مساءً", 
+      imageUrl: "https://placehold.co/300x200/1E88E5/FFFFFF?text=مستشفى+الياسمين" 
+    },
   ]);
 
   const [promos, setPromos] = useState([
-    { id: 1, title: "عرض الصيف", description: "خصم 20% على جميع الفحوصات", imageUrl: "https://via.placeholder.com/300x100" },
-    { id: 2, title: "عرض الشتاء", description: "فحص مجاني للسكري", imageUrl: "https://via.placeholder.com/300x100" },
+    { 
+      id: 1, 
+      title: "عرض الصيف", 
+      description: "خصم 20% على جميع الفحوصات", 
+      endDate: "31/08/2025", 
+      images: [
+        "https://placehold.co/300x200/4CAF50/FFFFFF?text=عرض+الصيف+1",
+        "https://placehold.co/300x200/4CAF50/FFFFFF?text=عرض+الصيف+2",
+        "https://placehold.co/300x200/4CAF50/FFFFFF?text=عرض+الصيف+3"
+      ]
+    },
+    { 
+      id: 2, 
+      title: "عرض الشتاء", 
+      description: "فحص مجاني للسكري", 
+      endDate: "15/12/2025", 
+      images: [
+        "https://placehold.co/300x200/F97316/FFFFFF?text=عرض+الشتاء+1",
+        "https://placehold.co/300x200/F97316/FFFFFF?text=عرض+الشتاء+2"
+      ]
+    },
+    { 
+      id: 3, 
+      title: "عرض رمضان", 
+      description: "استشارات مجانية طوال الشهر", 
+      endDate: "01/04/2026", 
+      images: [
+        "https://placehold.co/300x200/D946EF/FFFFFF?text=عرض+رمضان+1",
+        "https://placehold.co/300x200/D946EF/FFFFFF?text=عرض+رمضان+2",
+        "https://placehold.co/300x200/D946EF/FFFFFF?text=عرض+رمضان+3"
+      ]
+    },
+    { 
+      id: 4, 
+      title: "عرض العيد", 
+      description: "خصومات حتى 30% على خدمات الأسنان", 
+      endDate: "10/05/2026", 
+      images: [
+        "https://placehold.co/300x200/0EA5E9/FFFFFF?text=عرض+العيد+1",
+        "https://placehold.co/300x200/0EA5E9/FFFFFF?text=عرض+العيد+2"
+      ]
+    },
   ]);
 
-  const [articles, setArticles] = useState([
-    { id: 1, title: "أهمية الفحص الدوري", imageUrl: "https://via.placeholder.com/200x150" },
-    { id: 2, title: "نصائح للحفاظ على صحة القلب", imageUrl: "https://via.placeholder.com/200x150" },
-  ]);
-
-  const [topSpecialties, setTopSpecialties] = useState([
-    { id: 1, name: "القلب", count: 120 },
-    { id: 2, name: "العيون", count: 90 },
-    { id: 3, name: "الأطفال", count: 80 },
-    { id: 4, name: "الجلدية", count: 70 },
+  const [faqs, setFaqs] = useState([
+    {
+      question: "كيف يمكنني حجز موعد مع طبيب؟",
+      answer: "يمكنك حجز موعد مع طبيب عن طريق البحث عن الطبيب المناسب، ثم اختيار التاريخ والوقت المناسبين، وتأكيد الحجز بعد إدخال بياناتك الشخصية."
+    },
+    {
+      question: "هل يمكنني إلغاء الموعد؟",
+      answer: "نعم، يمكنك إلغاء الموعد قبل 24 ساعة على الأقل من الموعد المحدد دون أي رسوم إضافية."
+    },
+    {
+      question: "كيف يمكنني الدفع مقابل الاستشارة؟",
+      answer: "يمكنك الدفع باستخدام بطاقة الائتمان، أو الدفع النقدي عند الوصول، أو استخدام تطبيق الهاتف المحمول للدفع."
+    },
+    {
+      question: "هل يمكنني تقييم الطبيب بعد الزيارة؟",
+      answer: "نعم، يمكنك تقييم الطبيب وترك تعليقك بعد الزيارة من خلال حسابك على المنصة."
+    },
+    {
+      question: "كيف أحصل على الدعم الفني؟",
+      answer: "يمكنك الحصول على الدعم الفني عن طريق الاتصال بنا على الرقم المجاني، أو إرسال رسالة عبر نموذج الاتصال في الموقع."
+    },
+    {
+      question: "ماذا لو تأخر الطبيب؟",
+      answer: "إذا تأخر الطبيب لأكثر من 15 دقيقة، سيتم إعلامك عبر رسالة نصية، ويمكنك اختيار الانتظار أو إعادة جدولة الموعد مجاناً."
+    },
   ]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col dir-rtl">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="bg-gray-100 py-20">
+      {/* Hero Section with Search Form */}
+      <section className="bg-gradient-to-r from-medical-primary to-medical-dark text-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:flex items-center">
-            <div className="lg:w-1/2 text-center lg:text-left">
-              <h1 className="text-4xl font-bold text-gray-800 mb-4">
-                ابحث عن أفضل الأطباء واحجز موعدك بكل سهولة
-              </h1>
-              <p className="text-lg text-gray-600 mb-8">
-                منصة الطب العراقية تساعدك في العثور على الأطباء المناسبين وحجز المواعيد بكل يسر وسهولة.
-              </p>
-              <div className="flex justify-center lg:justify-start">
-                <Link to="/doctors">
-                  <Button className="bg-medical-primary hover:bg-medical-dark text-white">
-                    ابحث عن طبيب
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <div className="lg:w-1/2 mt-10 lg:mt-0">
-              <img
-                src="https://via.placeholder.com/600x400"
-                alt="Doctors"
-                className="rounded-lg shadow-lg"
-              />
-            </div>
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl font-bold mb-6">
+              ابحث عن أفضل الأطباء واحجز موعدك بكل سهولة
+            </h1>
+            <p className="text-lg mb-8 text-white/90">
+              منصة الطب العراقية تساعدك في العثور على الأطباء المناسبين وحجز المواعيد بكل يسر وسهولة.
+            </p>
+            
+            <SearchHeroForm />
           </div>
         </div>
       </section>
       
-      {/* Features Section */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center">
-              <i className="fas fa-search text-4xl text-medical-primary mb-4"></i>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                ابحث بسهولة
-              </h3>
-              <p className="text-gray-600">
-                ابحث عن الأطباء حسب التخصص والمنطقة والمزيد.
-              </p>
-            </div>
-            <div className="text-center">
-              <i className="fas fa-calendar-alt text-4xl text-medical-primary mb-4"></i>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                احجز موعدك
-              </h3>
-              <p className="text-gray-600">
-                احجز موعدك مع الطبيب المناسب بكل سهولة ويسر.
-              </p>
-            </div>
-            <div className="text-center">
-              <i className="fas fa-heart text-4xl text-medical-primary mb-4"></i>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                اعتني بصحتك
-              </h3>
-              <p className="text-gray-600">
-                نحن هنا لمساعدتك في الحفاظ على صحتك وعافيتك.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Specialties Section */}
+      <SpecialtiesSection specialties={topSpecialties} />
       
-      {/* Featured Doctors - Horizontal Scroll */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
-            أطباء متميزون
-          </h2>
-          <ScrollArea className="snap-x snap-mandatory touch-pan-x overflow-x-scroll">
-            <div className="flex space-x-4 py-4">
-              {featuredDoctors.map((doctor) => (
-                <Card key={doctor.id} className="w-64 snap-start">
-                  <Link to={`/doctors/${doctor.id}`}>
-                    <CardContent className="p-4">
-                      <AspectRatio ratio={1 / 1} className="mb-4">
-                        <img
-                          src={doctor.imageUrl}
-                          alt={doctor.name}
-                          className="rounded-md object-cover"
-                        />
-                      </AspectRatio>
-                      <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                        {doctor.name}
-                      </h3>
-                      <p className="text-gray-600">{doctor.specialty}</p>
-                    </CardContent>
-                  </Link>
-                </Card>
-              ))}
-            </div>
-          </ScrollArea>
-        </div>
-      </section>
+      {/* Hospitals Section */}
+      <HospitalsCarousel hospitals={hospitals} />
       
-      {/* Hospitals Section - New */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">المستشفيات</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {hospitals.map((hospital) => (
-              <div key={hospital.id} className="rounded-lg shadow-md overflow-hidden">
-                <Link to={`/hospitals/${hospital.id}`}>
-                  <AspectRatio ratio={4 / 3}>
-                    <img
-                      src={hospital.imageUrl}
-                      alt={hospital.name}
-                      className="object-cover"
-                    />
-                  </AspectRatio>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-800">{hospital.name}</h3>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Featured Doctors Section */}
+      <FeaturedDoctors doctors={featuredDoctors} />
       
-      {/* Promos Section - New */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">العروض</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {promos.map((promo) => (
-              <div key={promo.id} className="rounded-lg shadow-md overflow-hidden">
-                <Link to={`/promos/${promo.id}`}>
-                  <AspectRatio ratio={3 / 1}>
-                    <img
-                      src={promo.imageUrl}
-                      alt={promo.title}
-                      className="object-cover"
-                    />
-                  </AspectRatio>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-800">{promo.title}</h3>
-                    <p className="text-gray-600">{promo.description}</p>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Promos Section */}
+      <OffersSection offers={promos} />
       
-      {/* Articles Section - New */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">المقالات</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {articles.map((article) => (
-              <div key={article.id} className="rounded-lg shadow-md overflow-hidden">
-                <Link to={`/articles/${article.id}`}>
-                  <AspectRatio ratio={4 / 3}>
-                    <img
-                      src={article.imageUrl}
-                      alt={article.title}
-                      className="object-cover"
-                    />
-                  </AspectRatio>
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-gray-800">{article.title}</h3>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* App Promo Section */}
+      <AppPromoSection />
       
-      {/* Top Specialties */}
-      <section className="py-12 bg-gray-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
-            أكثر التخصصات طلباً
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {topSpecialties.map((specialty) => (
-              <div key={specialty.id} className="text-center">
-                <Badge className="bg-medical-primary text-white rounded-full px-3 py-1">
-                  {specialty.name}
-                </Badge>
-                <p className="text-gray-600 mt-2">
-                  {specialty.count} طبيب
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* FAQ Section */}
+      <FAQSection faqs={faqs} />
       
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-medical-primary to-medical-dark text-white">

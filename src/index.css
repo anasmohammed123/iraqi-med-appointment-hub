@@ -139,4 +139,17 @@
   .font-roboto {
     font-family: 'Roboto', sans-serif;
   }
+
+  /* Custom styles for the medical app */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:border-medical-primary;
+  }
+
+  .specialty-card {
+    @apply flex flex-col items-center justify-center p-4 text-center h-full rounded-lg bg-white shadow card-hover;
+  }
+
+  .rating-stars {
+    @apply flex items-center text-yellow-400;
+  }
 }
