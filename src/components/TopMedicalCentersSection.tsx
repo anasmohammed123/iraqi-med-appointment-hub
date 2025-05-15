@@ -1,10 +1,9 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Star, Building, ChevronRight } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Building, ChevronRight } from 'lucide-react';
+import { MedicalCard } from "@/components/ui/medical-card";
 
 interface MedicalCenter {
   id: number;
@@ -41,38 +40,23 @@ export const TopMedicalCentersSection = ({ centers }: TopMedicalCentersSectionPr
           <CarouselContent>
             {centers.map((center) => (
               <CarouselItem key={center.id} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-                <Link to={`/centers/${center.id}`} className="block">
-                  <Card className="h-full hover:shadow-lg hover:border-medical-primary transition-all">
-                    <div className="relative h-48">
-                      <img 
-                        src={center.imageUrl} 
-                        alt={center.name}
-                        className="object-cover w-full h-full rounded-t-lg"
-                      />
-                      <Badge className="absolute top-2 right-2 bg-white text-medical-primary">
+                <MedicalCard
+                  id={center.id}
+                  title={center.name}
+                  images={center.imageUrl}
+                  badges={center.services}
+                  rating={center.rating}
+                  link={`/centers/${center.id}`}
+                  type="center"
+                  additionalInfo={
+                    <div className="mt-3 flex items-center justify-between">
+                      <Building size={16} className="text-medical-primary" />
+                      <span className="text-sm text-medical-primary font-medium">
                         {center.visits} زيارة
-                      </Badge>
+                      </span>
                     </div>
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-1 text-yellow-500 mb-2">
-                        <Star size={14} fill="currentColor" />
-                        <span className="font-medium">{center.rating}</span>
-                      </div>
-                      <h3 className="font-semibold text-lg mb-2 text-gray-800">{center.name}</h3>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {center.services.map((service, index) => (
-                          <Badge key={index} variant="outline" className="bg-gray-100">
-                            {service}
-                          </Badge>
-                        ))}
-                      </div>
-                      <div className="mt-3 flex items-center justify-between">
-                        <Building size={16} className="text-medical-primary" />
-                        <span className="text-sm text-medical-primary font-medium">عرض التفاصيل</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
+                  }
+                />
               </CarouselItem>
             ))}
           </CarouselContent>

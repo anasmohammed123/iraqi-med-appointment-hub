@@ -16,6 +16,7 @@ import HospitalDetails from "./pages/HospitalDetails";
 import Promos from "./pages/Promos";
 import PromoDetails from "./pages/PromoDetails";
 import DoctorLogin from "./pages/DoctorLogin";
+import OnlineDoctors from "./pages/OnlineDoctors";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
             <Route path="/promos" element={<Promos />} />
             <Route path="/promos/:id" element={<PromoDetails />} />
             <Route path="/doctor-login" element={<DoctorLogin />} />
+            <Route path="/online-doctors" element={<OnlineDoctors />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

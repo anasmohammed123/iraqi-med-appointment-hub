@@ -9,6 +9,7 @@ import {
   medicalCentersData,
   cardiacDoctorsData
 } from '@/data/homePageData';
+import { onlineDoctorsData } from '@/data/onlineDoctorsData';
 
 // Define types for our data
 export interface Specialty {
@@ -58,6 +59,16 @@ export interface MedicalCenter {
   imageUrl: string;
 }
 
+export interface OnlineDoctor {
+  id: number;
+  name: string;
+  specialty: string;
+  imageUrl: string;
+  availableFor: Array<"video" | "phone">;
+  rating: number;
+  price: number;
+}
+
 export const useHomePageData = () => {
   // Initialize all state variables with the data
   const [topSpecialties, setTopSpecialties] = useState<Specialty[]>(topSpecialtiesData);
@@ -67,6 +78,18 @@ export const useHomePageData = () => {
   const [faqs, setFaqs] = useState<FAQ[]>(faqsData);
   const [medicalCenters, setMedicalCenters] = useState<MedicalCenter[]>(medicalCentersData);
   const [cardiacDoctors, setCardiacDoctors] = useState<Doctor[]>(cardiacDoctorsData);
+  const [onlineDoctors, setOnlineDoctors] = useState<OnlineDoctor[]>(onlineDoctorsData);
+  
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Function to simulate page loading
+  const simulateLoading = (callback: () => void, delay = 500) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      callback();
+      setIsLoading(false);
+    }, delay);
+  };
   
   return {
     topSpecialties,
@@ -76,6 +99,9 @@ export const useHomePageData = () => {
     faqs,
     medicalCenters,
     cardiacDoctors,
+    onlineDoctors,
+    isLoading,
+    simulateLoading,
     
     // Add setters in case we need to update any of these values
     setTopSpecialties,
@@ -84,6 +110,7 @@ export const useHomePageData = () => {
     setPromos,
     setFaqs,
     setMedicalCenters,
-    setCardiacDoctors
+    setCardiacDoctors,
+    setOnlineDoctors
   };
 };

@@ -1,6 +1,5 @@
 
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { HeroSection } from "@/components/HeroSection";
@@ -15,6 +14,8 @@ import { TopMedicalCentersSection } from "@/components/TopMedicalCentersSection"
 import { DoctorsBySpecializationSection } from "@/components/DoctorsBySpecializationSection";
 import { PatientActionsSection } from "@/components/PatientActionsSection";
 import { CTASection } from "@/components/CTASection";
+import { OnlineDoctorsSection } from "@/components/OnlineDoctorsSection";
+import { PageLoader } from "@/components/ui/loader";
 import { useHomePageData } from "@/hooks/useHomePageData";
 
 const Index = () => {
@@ -26,11 +27,21 @@ const Index = () => {
     promos,
     faqs,
     medicalCenters,
-    cardiacDoctors
+    cardiacDoctors,
+    onlineDoctors,
+    isLoading,
+    simulateLoading
   } = useHomePageData();
+
+  // Simulate initial page loading
+  useEffect(() => {
+    simulateLoading(() => {}, 1000);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col dir-rtl">
+      {isLoading && <PageLoader />}
+      
       <Navbar />
       
       {/* Hero Section with Search Form */}
@@ -44,6 +55,9 @@ const Index = () => {
       
       {/* Featured Doctors Section */}
       <FeaturedDoctors doctors={featuredDoctors} />
+      
+      {/* Online Doctors Section - New */}
+      <OnlineDoctorsSection doctors={onlineDoctors} />
       
       {/* Top Medical Centers Section */}
       <TopMedicalCentersSection centers={medicalCenters} />
