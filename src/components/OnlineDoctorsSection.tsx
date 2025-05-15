@@ -8,16 +8,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Button } from "@/components/ui/button";
 import { LazyImage } from "@/components/ui/lazy-image";
 import { Video, Phone, ChevronRight } from 'lucide-react';
-
-interface OnlineDoctor {
-  id: number;
-  name: string;
-  specialty: string;
-  imageUrl: string;
-  availableFor: Array<"video" | "phone">;
-  rating: number;
-  price: number;
-}
+import { OnlineDoctor } from '@/data/onlineDoctorsData';
 
 interface OnlineDoctorsSectionProps {
   doctors: OnlineDoctor[];

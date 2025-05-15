@@ -9,7 +9,7 @@ import {
   medicalCentersData,
   cardiacDoctorsData
 } from '@/data/homePageData';
-import { onlineDoctorsData } from '@/data/onlineDoctorsData';
+import { onlineDoctorsData, OnlineDoctor } from '@/data/onlineDoctorsData';
 
 // Define types for our data
 export interface Specialty {
@@ -57,16 +57,6 @@ export interface MedicalCenter {
   rating: number;
   services: string[];
   imageUrl: string;
-}
-
-export interface OnlineDoctor {
-  id: number;
-  name: string;
-  specialty: string;
-  imageUrl: string;
-  availableFor: Array<"video" | "phone">;
-  rating: number;
-  price: number;
 }
 
 export const useHomePageData = () => {

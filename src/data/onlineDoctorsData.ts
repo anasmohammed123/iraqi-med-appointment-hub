@@ -5,7 +5,7 @@ export const onlineDoctorsData = [
     name: "د. محمد عبدالله",
     specialty: "طب عام",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+محمد",
-    availableFor: ["video", "phone"],
+    availableFor: ["video", "phone"] as const,
     rating: 4.8,
     price: 25
   },
@@ -14,7 +14,7 @@ export const onlineDoctorsData = [
     name: "د. سارة أحمد",
     specialty: "أمراض نساء",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+سارة",
-    availableFor: ["video"],
+    availableFor: ["video"] as const,
     rating: 4.9,
     price: 35
   },
@@ -23,7 +23,7 @@ export const onlineDoctorsData = [
     name: "د. علي محمود",
     specialty: "أطفال",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+علي",
-    availableFor: ["phone", "video"],
+    availableFor: ["phone", "video"] as const,
     rating: 4.7,
     price: 30
   },
@@ -32,7 +32,7 @@ export const onlineDoctorsData = [
     name: "د. فاطمة حسين",
     specialty: "جلدية",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+فاطمة",
-    availableFor: ["phone"],
+    availableFor: ["phone"] as const,
     rating: 4.6,
     price: 40
   },
@@ -41,7 +41,7 @@ export const onlineDoctorsData = [
     name: "د. خالد العلي",
     specialty: "نفسية",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+خالد",
-    availableFor: ["video", "phone"],
+    availableFor: ["video", "phone"] as const,
     rating: 4.9,
     price: 45
   },
@@ -50,7 +50,7 @@ export const onlineDoctorsData = [
     name: "د. نور الهدى",
     specialty: "عيون",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+نور",
-    availableFor: ["video"],
+    availableFor: ["video"] as const,
     rating: 4.7,
     price: 35
   },
@@ -59,7 +59,7 @@ export const onlineDoctorsData = [
     name: "د. عمر محمد",
     specialty: "قلب",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+عمر",
-    availableFor: ["video", "phone"],
+    availableFor: ["video", "phone"] as const,
     rating: 4.8,
     price: 50
   },
@@ -68,7 +68,7 @@ export const onlineDoctorsData = [
     name: "د. زينب كريم",
     specialty: "باطنية",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+زينب",
-    availableFor: ["phone"],
+    availableFor: ["phone"] as const,
     rating: 4.6,
     price: 30
   },
@@ -77,7 +77,7 @@ export const onlineDoctorsData = [
     name: "د. أحمد علي",
     specialty: "عظام",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+أحمد",
-    availableFor: ["video", "phone"],
+    availableFor: ["video", "phone"] as const,
     rating: 4.7,
     price: 40
   },
@@ -86,10 +86,18 @@ export const onlineDoctorsData = [
     name: "د. ليلى عباس",
     specialty: "أسنان",
     imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+ليلى",
-    availableFor: ["video"],
+    availableFor: ["video"] as const,
     rating: 4.9,
     price: 45
   }
 ];
 
-export type OnlineDoctor = typeof onlineDoctorsData[0];
+export type OnlineDoctor = {
+  id: number;
+  name: string;
+  specialty: string;
+  imageUrl: string;
+  availableFor: Array<"video" | "phone">;
+  rating: number;
+  price: number;
+};

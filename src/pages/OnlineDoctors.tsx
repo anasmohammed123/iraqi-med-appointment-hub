@@ -9,12 +9,12 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { LazyImage } from "@/components/ui/lazy-image";
 import { Video, Phone, Search } from "lucide-react";
-import { onlineDoctorsData } from '@/data/onlineDoctorsData';
+import { onlineDoctorsData, OnlineDoctor } from '@/data/onlineDoctorsData';
 import { PageLoader } from '@/components/ui/loader';
 
 const OnlineDoctors = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [doctors] = useState(onlineDoctorsData);
+  const [doctors] = useState<OnlineDoctor[]>(onlineDoctorsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>(null);
   const [selectedConsultType, setSelectedConsultType] = useState<string | null>(null);
