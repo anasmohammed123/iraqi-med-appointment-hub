@@ -17,6 +17,9 @@ import Promos from "./pages/Promos";
 import PromoDetails from "./pages/PromoDetails";
 import DoctorLogin from "./pages/DoctorLogin";
 import OnlineDoctors from "./pages/OnlineDoctors";
+import DoctorDashboard from "./pages/DoctorDashboard";
+import DoctorTerms from "./pages/DoctorTerms";
+import PatientQuestions from "./pages/PatientQuestions";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +43,9 @@ const App = () => (
             <Route path="/promos/:id" element={<PromoDetails />} />
             <Route path="/doctor-login" element={<DoctorLogin />} />
             <Route path="/online-doctors" element={<OnlineDoctors />} />
+            <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
+            <Route path="/doctor-terms" element={<DoctorTerms />} />
+            <Route path="/patient-questions" element={<PatientQuestions />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

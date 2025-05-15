@@ -1,103 +1,49 @@
 
-export const onlineDoctorsData = [
-  {
-    id: 1,
-    name: "د. محمد عبدالله",
-    specialty: "طب عام",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+محمد",
-    availableFor: ["video", "phone"] as const,
-    rating: 4.8,
-    price: 25
-  },
-  {
-    id: 2,
-    name: "د. سارة أحمد",
-    specialty: "أمراض نساء",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+سارة",
-    availableFor: ["video"] as const,
-    rating: 4.9,
-    price: 35
-  },
-  {
-    id: 3,
-    name: "د. علي محمود",
-    specialty: "أطفال",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+علي",
-    availableFor: ["phone", "video"] as const,
-    rating: 4.7,
-    price: 30
-  },
-  {
-    id: 4,
-    name: "د. فاطمة حسين",
-    specialty: "جلدية",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+فاطمة",
-    availableFor: ["phone"] as const,
-    rating: 4.6,
-    price: 40
-  },
-  {
-    id: 5,
-    name: "د. خالد العلي",
-    specialty: "نفسية",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+خالد",
-    availableFor: ["video", "phone"] as const,
-    rating: 4.9,
-    price: 45
-  },
-  {
-    id: 6,
-    name: "د. نور الهدى",
-    specialty: "عيون",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+نور",
-    availableFor: ["video"] as const,
-    rating: 4.7,
-    price: 35
-  },
-  {
-    id: 7,
-    name: "د. عمر محمد",
-    specialty: "قلب",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+عمر",
-    availableFor: ["video", "phone"] as const,
-    rating: 4.8,
-    price: 50
-  },
-  {
-    id: 8,
-    name: "د. زينب كريم",
-    specialty: "باطنية",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+زينب",
-    availableFor: ["phone"] as const,
-    rating: 4.6,
-    price: 30
-  },
-  {
-    id: 9,
-    name: "د. أحمد علي",
-    specialty: "عظام",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+أحمد",
-    availableFor: ["video", "phone"] as const,
-    rating: 4.7,
-    price: 40
-  },
-  {
-    id: 10,
-    name: "د. ليلى عباس",
-    specialty: "أسنان",
-    imageUrl: "https://placehold.co/400x400/3b82f6/ffffff?text=د.+ليلى",
-    availableFor: ["video"] as const,
-    rating: 4.9,
-    price: 45
-  }
-];
-
-export type OnlineDoctor = {
+export interface OnlineDoctor {
   id: number;
   name: string;
   specialty: string;
   imageUrl: string;
-  availableFor: Array<"video" | "phone">;
+  availableFor: ("video" | "phone")[];
   rating: number;
   price: number;
-};
+}
+
+export const onlineDoctors: OnlineDoctor[] = [
+  {
+    id: 1,
+    name: "د. محمد الحسن",
+    specialty: "طب أطفال",
+    imageUrl: "/placeholder.svg",
+    availableFor: ["video", "phone"],
+    rating: 4.9,
+    price: 50
+  },
+  {
+    id: 2,
+    name: "د. سارة العلي",
+    specialty: "أمراض نساء وتوليد",
+    imageUrl: "/placeholder.svg",
+    availableFor: ["video"],
+    rating: 4.8,
+    price: 65
+  },
+  {
+    id: 3,
+    name: "د. أحمد العميري",
+    specialty: "طب باطني",
+    imageUrl: "/placeholder.svg",
+    availableFor: ["phone"],
+    rating: 4.7,
+    price: 45
+  },
+  {
+    id: 4,
+    name: "د. فاطمة الزهراء",
+    specialty: "جلدية",
+    imageUrl: "/placeholder.svg",
+    availableFor: ["video", "phone"],
+    rating: 4.9,
+    price: 70
+  }
+];
