@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { PageLayout } from "@/components/PageLayout";
 import { PageLoader } from "@/components/ui/loader";
@@ -9,7 +8,7 @@ import {
   LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts';
-import { TrendingUp, TrendingDown, Users, Calendar, Activity, Dollar } from "lucide-react";
+import { TrendingUp, TrendingDown, Users, Calendar, Activity, DollarSign } from "lucide-react";
 import { useHomePageData } from "@/hooks/useHomePageData";
 
 // Stats data
@@ -215,7 +214,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <div className="bg-orange-100 p-3 rounded-lg">
-                  <Dollar size={24} className="text-orange-600" />
+                  <DollarSign size={24} className="text-orange-600" />
                 </div>
               </div>
             </CardContent>
@@ -335,7 +334,7 @@ const Dashboard = () => {
           <TabsContent value="appointments">
             <Card>
               <CardHeader>
-                <CardTitle>بيانات المواعيد التفصيلية</CardTitle>
+                <CardTitle>بيانا�� المواعيد التفصيلية</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="text-center py-12 text-gray-500">

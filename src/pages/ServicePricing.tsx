@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
@@ -14,7 +13,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "@/components/ui/use-toast";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Dollar } from "lucide-react";
+import { DollarSign } from "lucide-react";
 
 const servicePricingSchema = z.object({
   fullName: z.string().min(3, { message: "الاسم يجب أن يكون أكثر من 3 أحرف" }),
@@ -212,7 +211,7 @@ const ServicePricing = () => {
                           <div className="flex justify-between items-center mb-2">
                             <h3 className="font-semibold">{offer.doctorName}</h3>
                             <div className="flex items-center text-medical-primary font-bold">
-                              <Dollar size={16} className="ml-1" />
+                              <DollarSign size={16} className="ml-1" />
                               <span>{offer.price} د.ع</span>
                             </div>
                           </div>
