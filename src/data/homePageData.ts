@@ -1,4 +1,3 @@
-
 // Mock data for the home page components
 
 export const topSpecialtiesData = [
@@ -211,3 +210,7 @@ export const cardiacDoctorsData = [
   { id: 109, name: "د. حسن العزاوي", specialty: "قلب", rating: 4.8, reviews: 118, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+حسن" },
   { id: 110, name: "د. ليلى التميمي", specialty: "قلب", rating: 4.7, reviews: 95, imageUrl: "https://placehold.co/150x150/8B5CF6/FFFFFF?text=د.+ليلى" }
 ];
+
+// Export cosmetic centers for the home page
+import { cosmeticCentersData } from './cosmeticCentersData';
+export { cosmeticCentersData };

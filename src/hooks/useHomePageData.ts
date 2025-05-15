@@ -1,6 +1,15 @@
 
 import { useState } from 'react';
-import { topSpecialties, doctors, hospitals, promos, faqs, medicalCenters, cardiacDoctors } from '@/data/homePageData';
+import { 
+  topSpecialtiesData as topSpecialties, 
+  featuredDoctorsData as doctors, 
+  hospitalsData as hospitals, 
+  promosData as promos, 
+  faqsData as faqs, 
+  medicalCentersData as medicalCenters, 
+  cardiacDoctorsData as cardiacDoctors,
+  cosmeticCentersData as cosmeticCenters 
+} from '@/data/homePageData';
 import { onlineDoctors, OnlineDoctor } from '@/data/onlineDoctorsData';
 
 export const useHomePageData = () => {
@@ -22,7 +31,8 @@ export const useHomePageData = () => {
     faqs,
     medicalCenters,
     cardiacDoctors,
-    onlineDoctors, // From the separate onlineDoctorsData.ts file
+    onlineDoctors,
+    cosmeticCenters,
     isLoading,
     simulateLoading
   };

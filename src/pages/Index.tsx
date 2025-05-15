@@ -15,6 +15,7 @@ import { DoctorsBySpecializationSection } from "@/components/DoctorsBySpecializa
 import { PatientActionsSection } from "@/components/PatientActionsSection";
 import { CTASection } from "@/components/CTASection";
 import { OnlineDoctorsSection } from "@/components/OnlineDoctorsSection";
+import { CosmeticCentersSection } from "@/components/CosmeticCentersSection";
 import { PageLoader } from "@/components/ui/loader";
 import { useHomePageData } from "@/hooks/useHomePageData";
 
@@ -29,6 +30,7 @@ const Index = () => {
     medicalCenters,
     cardiacDoctors,
     onlineDoctors,
+    cosmeticCenters,
     isLoading,
     simulateLoading
   } = useHomePageData();
@@ -56,8 +58,11 @@ const Index = () => {
       {/* Featured Doctors Section */}
       <FeaturedDoctors doctors={featuredDoctors} />
       
-      {/* Online Doctors Section - New */}
+      {/* Online Doctors Section */}
       <OnlineDoctorsSection doctors={onlineDoctors} />
+      
+      {/* Cosmetic Centers Section - New */}
+      <CosmeticCentersSection centers={cosmeticCenters} />
       
       {/* Top Medical Centers Section */}
       <TopMedicalCentersSection centers={medicalCenters} />

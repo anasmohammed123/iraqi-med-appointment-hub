@@ -20,6 +20,11 @@ import OnlineDoctors from "./pages/OnlineDoctors";
 import DoctorDashboard from "./pages/DoctorDashboard";
 import DoctorTerms from "./pages/DoctorTerms";
 import PatientQuestions from "./pages/PatientQuestions";
+import Dashboard from "./pages/Dashboard";
+import ServicePricing from "./pages/ServicePricing";
+import LocationSearch from "./pages/LocationSearch";
+import CosmeticCenters from "./pages/CosmeticCenters";
+import CosmeticCenterDetails from "./pages/CosmeticCenterDetails";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +51,11 @@ const App = () => (
             <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
             <Route path="/doctor-terms" element={<DoctorTerms />} />
             <Route path="/patient-questions" element={<PatientQuestions />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/service-pricing" element={<ServicePricing />} />
+            <Route path="/location-search" element={<LocationSearch />} />
+            <Route path="/cosmetic-centers" element={<CosmeticCenters />} />
+            <Route path="/cosmetic-centers/:id" element={<CosmeticCenterDetails />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
