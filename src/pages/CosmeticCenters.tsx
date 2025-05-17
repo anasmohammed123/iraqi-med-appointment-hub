@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
 import { PageLoader } from "@/components/ui/loader";
@@ -20,6 +20,7 @@ const CosmeticCenters = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [ratingFilter, setRatingFilter] = useState(0);
+  const [localLoading, setLocalLoading] = useState(false);
 
   // Create an array of all unique services
   const allServices = Array.from(
@@ -53,14 +54,25 @@ const CosmeticCenters = () => {
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    simulateLoading(() => {
-      // Just to show loading effect when filtering
+    setLocalLoading(true);
+    
+    // Simulate loading effect
+    setTimeout(() => {
+      setLocalLoading(false);
     }, 800);
   };
 
+  // Hide global loader after initial load
+  useEffect(() => {
+    if (!isLoading) {
+      // Ensure isLoading is properly reset after data load
+      simulateLoading(() => {}, 0);
+    }
+  }, [isLoading, simulateLoading]);
+
   return (
     <PageLayout>
-      {isLoading && <PageLoader />}
+      {(isLoading || localLoading) && <PageLoader />}
       <div className="container mx-auto py-10 px-4">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold mb-2">مراكز التجميل المتميزة</h1>

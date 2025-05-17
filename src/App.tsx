@@ -25,6 +25,8 @@ import ServicePricing from "./pages/ServicePricing";
 import LocationSearch from "./pages/LocationSearch";
 import CosmeticCenters from "./pages/CosmeticCenters";
 import CosmeticCenterDetails from "./pages/CosmeticCenterDetails";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +58,8 @@ const App = () => (
             <Route path="/location-search" element={<LocationSearch />} />
             <Route path="/cosmetic-centers" element={<CosmeticCenters />} />
             <Route path="/cosmetic-centers/:id" element={<CosmeticCenterDetails />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about" element={<About />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -55,35 +55,50 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
-                  الأسئلة الشائعة
+                <Link to="/contact" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  اتصل بنا
+                </Link>
+              </li>
+              <li>
+                <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  من نحن
                 </Link>
               </li>
             </ul>
           </div>
           
-          {/* For Doctors */}
+          {/* Top Visited */}
           <div>
-            <h3 className="text-lg font-bold mb-4 text-medical-dark dark:text-white">للأطباء</h3>
+            <h3 className="text-lg font-bold mb-4 text-medical-dark dark:text-white">الأكثر زيارة</h3>
             <ul className="space-y-2">
               <li>
-                <Link to="/doctor-register" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
-                  انضم كطبيب
+                <Link to="/hospitals" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  مستشفى الرشيد التخصصي
                 </Link>
               </li>
               <li>
-                <Link to="/doctor-login" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
-                  تسجيل دخول الأطباء
+                <Link to="/doctors" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  د. محمد عبد الكريم - القلب
                 </Link>
               </li>
               <li>
-                <Link to="/doctor-dashboard" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
-                  لوحة تحكم الطبيب
+                <Link to="/cosmetic-centers" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  مركز النخبة للتجميل
                 </Link>
               </li>
               <li>
-                <Link to="/doctor-terms" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
-                  شروط الاستخدام للأطباء
+                <Link to="/doctors" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  د. سارة حسين - الجلدية
+                </Link>
+              </li>
+              <li>
+                <Link to="/hospitals" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  المركز الطبي التخصصي
+                </Link>
+              </li>
+              <li>
+                <Link to="/cosmetic-centers" className="text-gray-600 dark:text-gray-300 hover:text-medical-primary dark:hover:text-medical-secondary">
+                  مركز الجمال الحديث
                 </Link>
               </li>
             </ul>
