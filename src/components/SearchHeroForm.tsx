@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, MapPin, Briefcase, Building } from 'lucide-react';
+import { Search, MapPin, Briefcase, Building, Compass } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from 'react-router-dom';
 
 export const SearchHeroForm = () => {
   const navigate = useNavigate();
@@ -122,11 +123,18 @@ export const SearchHeroForm = () => {
             />
           </div>
           
-          <div className="flex items-end">
-            <Button type="submit" className="w-full bg-medical-primary hover:bg-medical-dark flex items-center justify-center gap-2">
+          <div className="flex items-end gap-2">
+            <Button type="submit" className="flex-1 bg-medical-primary hover:bg-medical-dark flex items-center justify-center gap-2">
               <Search size={18} />
               <span>بحث</span>
             </Button>
+            
+            <Link to="/location-search">
+              <Button type="button" variant="outline" className="h-full flex items-center justify-center gap-2 border-medical-primary text-medical-primary hover:bg-medical-light">
+                <Compass size={18} />
+                <span className="hidden sm:inline">بحث حسب الموقع</span>
+              </Button>
+            </Link>
           </div>
         </form>
       </CardContent>

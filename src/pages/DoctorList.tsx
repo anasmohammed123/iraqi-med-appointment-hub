@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Search, MapPin, Filter, X, Star } from "lucide-react";
+import { Search, MapPin, Filter, X, Star, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -133,6 +132,16 @@ const DoctorList = () => {
                   <X className="h-4 w-4" />
                 </Button>
               )}
+            </div>
+            
+            {/* Added Location Search Button */}
+            <div className="mt-4 text-center">
+              <Link to="/location-search">
+                <Button variant="outline" className="bg-white gap-2">
+                  <Compass className="h-4 w-4" />
+                  البحث عن أطباء حسب موقعك الحالي
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -389,69 +398,44 @@ const DoctorList = () => {
                 </h2>
               </div>
 
-              <div className="space-y-6">
-                {filteredDoctors.length > 0 ? (
-                  filteredDoctors.map((doctor) => (
+              {filteredDoctors.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {filteredDoctors.map((doctor) => (
                     <Card key={doctor.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="flex flex-col md:flex-row">
-                        <div className="md:w-1/4">
-                          <img
-                            src={`https://placehold.co/400x400/3b82f6/ffffff?text=${doctor.nameAr.charAt(0)}`}
-                            alt={doctor.nameAr}
-                            className="w-full h-full object-cover object-center md:h-64"
-                          />
-                        </div>
-                        <CardContent className="flex-1 p-6">
-                          <div className="flex flex-col md:flex-row justify-between">
-                            <div>
-                              <h3 className="text-xl font-bold mb-1 text-gray-900 dark:text-white">
-                                {doctor.nameAr}
-                              </h3>
-                              <p className="text-medical-primary mb-2">{doctor.specialtyAr}</p>
-                              
-                              <div className="flex items-center text-amber-500 mb-3">
-                                {'★'.repeat(Math.floor(doctor.rating))}
-                                {'☆'.repeat(5 - Math.floor(doctor.rating))}
-                                <span className="text-gray-600 dark:text-gray-400 mr-2">({doctor.reviewCount})</span>
-                                <span className="text-gray-600 dark:text-gray-400">• {doctor.experience} سنة خبرة</span>
-                              </div>
-                              
-                              <div className="flex items-center mb-3 text-gray-600 dark:text-gray-300">
-                                <MapPin className="h-4 w-4 ml-1 flex-shrink-0" />
-                                <span>{doctor.hospitalAr}، {doctor.cityAr}</span>
-                              </div>
-                              
-                              <div className="mb-4">
-                                <p className="text-gray-700 dark:text-gray-300 line-clamp-2">
-                                  {doctor.bioAr}
-                                </p>
-                              </div>
-                              
-                              <div className="flex flex-wrap gap-2 mb-4">
-                                {doctor.availableDays.map((day) => (
-                                  <span key={day} className="text-xs bg-medical-light text-medical-primary px-2 py-1 rounded-full">
-                                    {day === 'Sunday' ? 'الأحد' :
-                                     day === 'Monday' ? 'الإثنين' :
-                                     day === 'Tuesday' ? 'الثلاثاء' :
-                                     day === 'Wednesday' ? 'الأربعاء' :
-                                     day === 'Thursday' ? 'الخميس' :
-                                     day === 'Friday' ? 'الجمعة' :
-                                     'السبت'}
-                                  </span>
-                                ))}
-                              </div>
+                      <div className="h-full flex flex-col">
+                        <img
+                          src={`https://placehold.co/400x400/3b82f6/ffffff?text=${doctor.nameAr.charAt(0)}`}
+                          alt={doctor.nameAr}
+                          className="w-full h-48 object-cover"
+                        />
+                        <CardContent className="flex-1 p-4">
+                          <div>
+                            <h3 className="text-lg font-semibold mb-1 text-gray-900 dark:text-white">
+                              {doctor.nameAr}
+                            </h3>
+                            <p className="text-medical-primary text-sm mb-2">{doctor.specialtyAr}</p>
+                            
+                            <div className="flex items-center text-amber-500 mb-2">
+                              {'★'.repeat(Math.floor(doctor.rating))}
+                              {'☆'.repeat(5 - Math.floor(doctor.rating))}
+                              <span className="text-gray-600 text-xs mr-1">({doctor.reviewCount})</span>
                             </div>
                             
-                            <div className="mt-4 md:mt-0 md:text-right">
-                              <div className="mb-4">
-                                <span className="text-gray-900 dark:text-white font-bold text-lg block">
+                            <div className="flex items-center mb-3 text-gray-600 text-xs">
+                              <MapPin className="h-3 w-3 ml-1 flex-shrink-0" />
+                              <span className="truncate">{doctor.hospitalAr}، {doctor.cityAr}</span>
+                            </div>
+                            
+                            <div className="mt-auto">
+                              <div className="flex justify-between items-center mb-3">
+                                <span className="text-gray-900 font-bold">
                                   {doctor.price.toLocaleString()} د.ع
                                 </span>
-                                <span className="text-gray-500 text-sm">لكل كشف</span>
+                                <span className="text-xs text-gray-500">لكل كشف</span>
                               </div>
                               
-                              <Link to={`/doctors/${doctor.id}`}>
-                                <Button className="w-full bg-medical-primary hover:bg-medical-dark text-white">
+                              <Link to={`/doctors/${doctor.id}`} className="block">
+                                <Button className="w-full bg-medical-primary hover:bg-medical-dark text-white text-sm py-1">
                                   عرض الملف وحجز موعد
                                 </Button>
                               </Link>
@@ -460,20 +444,20 @@ const DoctorList = () => {
                         </CardContent>
                       </div>
                     </Card>
-                  ))
-                ) : (
-                  <div className="text-center py-12">
-                    <div className="text-5xl mb-4">😔</div>
-                    <h3 className="text-xl font-bold mb-2">لم يتم العثور على أطباء</h3>
-                    <p className="text-gray-600 mb-6">
-                      لا توجد نتائج تطابق معايير البحث الخاصة بك. يرجى تعديل المرشحات وحاول مرة أخرى.
-                    </p>
-                    <Button onClick={clearFilters} variant="outline">
-                      إعادة تعيين الفلاتر
-                    </Button>
-                  </div>
-                )}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="text-5xl mb-4">😔</div>
+                  <h3 className="text-xl font-bold mb-2">لم يتم العثور على أطباء</h3>
+                  <p className="text-gray-600 mb-6">
+                    لا توجد نتائج تطابق معايير البحث الخاصة بك. يرجى تعديل المرشحات وحاول مرة أخرى.
+                  </p>
+                  <Button onClick={clearFilters} variant="outline">
+                    إعادة تعيين الفلاتر
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </div>
