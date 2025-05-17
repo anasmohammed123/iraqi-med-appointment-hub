@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { LazyImage } from "@/components/ui/lazy-image";
-import { Gallery, Image, ImageIcon } from 'lucide-react';
+import { Image, ImageIcon, Images } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -22,7 +22,7 @@ interface ClinicGalleryProps {
 
 export const ClinicGallery = ({ images }: ClinicGalleryProps) => {
   const categories = [
-    { value: "all", label: "الكل", icon: Gallery },
+    { value: "all", label: "الكل", icon: Images },
     { value: "clinic", label: "العيادة", icon: ImageIcon },
     { value: "equipment", label: "المعدات", icon: ImageIcon },
     { value: "team", label: "الفريق الطبي", icon: ImageIcon },

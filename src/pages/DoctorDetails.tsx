@@ -13,7 +13,8 @@ import {
   ChevronLeft, 
   CheckCircle,
   AlertCircle,
-  Images
+  Images,
+  Building
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -41,7 +42,164 @@ type AppointmentTime = {
   available: boolean;
 };
 
-// Mock appointment times
+// Mock clinics data for each doctor
+const doctorClinics = {
+  "1": [
+    {
+      id: "clinic1",
+      name: "العيادة الرئيسية",
+      address: "شارع الرشيد، بغداد",
+      location: "بغداد، العراق",
+      phone: "+964 771 234 5678",
+      workingDays: "الأحد، الثلاثاء، الخميس",
+      workingHours: "9:00 صباحاً - 5:00 مساءً",
+      price: 50000,
+      mapLocation: { lat: 33.312, lng: 44.361 },
+      images: [
+        {
+          id: 1,
+          src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=800",
+          alt: "غرفة الكشف الرئيسية",
+          category: "clinic" as const
+        },
+        {
+          id: 2,
+          src: "https://images.unsplash.com/photo-1629909614822-8f85aef87bc6?q=80&w=800",
+          alt: "غرفة العمليات",
+          category: "clinic" as const
+        },
+        {
+          id: 3,
+          src: "https://images.unsplash.com/photo-1516549655669-df97abd18791?q=80&w=800",
+          alt: "غرفة الانتظار",
+          category: "clinic" as const
+        },
+        {
+          id: 4,
+          src: "https://images.unsplash.com/photo-1504439904031-93ded9f93e4e?q=80&w=800",
+          alt: "جهاز تخطيط القلب",
+          category: "equipment" as const
+        }
+      ]
+    },
+    {
+      id: "clinic2",
+      name: "عيادة المنصور",
+      address: "شارع 14 رمضان، المنصور، بغداد",
+      location: "المنصور، بغداد، العراق",
+      phone: "+964 771 456 7890",
+      workingDays: "السبت، الإثنين، الأربعاء",
+      workingHours: "4:00 مساءً - 9:00 مساءً",
+      price: 60000,
+      mapLocation: { lat: 33.317, lng: 44.340 },
+      images: [
+        {
+          id: 5,
+          src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800",
+          alt: "جهاز الأشعة السينية",
+          category: "equipment" as const
+        },
+        {
+          id: 6,
+          src: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=800",
+          alt: "منظر خارجي للعيادة",
+          category: "clinic" as const
+        },
+        {
+          id: 7,
+          src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800",
+          alt: "الفريق الطبي",
+          category: "team" as const
+        }
+      ]
+    },
+    {
+      id: "clinic3",
+      name: "مركز البصرة الطبي",
+      address: "شارع الجزائر، البصرة",
+      location: "البصرة، العراق",
+      phone: "+964 780 123 4567",
+      workingDays: "الجمعة",
+      workingHours: "10:00 صباحاً - 3:00 مساءً",
+      price: 45000,
+      mapLocation: { lat: 30.505, lng: 47.783 },
+      images: [
+        {
+          id: 8,
+          src: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=800",
+          alt: "مساعد الطبيب",
+          category: "team" as const
+        },
+        {
+          id: 9,
+          src: "https://images.unsplash.com/photo-1579684453377-48ec05c6b30a?q=80&w=800",
+          alt: "غرفة انتظار خاصة",
+          category: "clinic" as const
+        },
+        {
+          id: 10,
+          src: "https://images.unsplash.com/photo-1535914254981-b5012eebbd15?q=80&w=800",
+          alt: "مدخل العيادة",
+          category: "clinic" as const
+        }
+      ]
+    }
+  ],
+  "2": [
+    {
+      id: "clinic4",
+      name: "عيادة الكرادة",
+      address: "شارع الكرادة، بغداد",
+      location: "الكرادة، بغداد، العراق",
+      phone: "+964 771 987 6543",
+      workingDays: "الأحد، الإثنين، الثلاثاء، الخميس",
+      workingHours: "10:00 صباحاً - 6:00 مساءً",
+      price: 55000,
+      mapLocation: { lat: 33.310, lng: 44.444 },
+      images: [
+        {
+          id: 11,
+          src: "https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=800",
+          alt: "جهاز فحص العيون",
+          category: "equipment" as const
+        },
+        {
+          id: 12,
+          src: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?q=80&w=800",
+          alt: "غرفة الكشف",
+          category: "clinic" as const
+        }
+      ]
+    },
+    {
+      id: "clinic5",
+      name: "مستشفى ابن سينا",
+      address: "الباب المعظم، بغداد",
+      location: "بغداد، العراق",
+      phone: "+964 771 456 3421",
+      workingDays: "السبت، الأربعاء",
+      workingHours: "12:00 ظهراً - 4:00 مساءً",
+      price: 70000,
+      mapLocation: { lat: 33.345, lng: 44.386 },
+      images: [
+        {
+          id: 13,
+          src: "https://images.unsplash.com/photo-1516549655669-df97abd18791?q=80&w=800",
+          alt: "غرفة انتظار",
+          category: "clinic" as const
+        },
+        {
+          id: 14,
+          src: "https://images.unsplash.com/photo-1504439904031-93ded9f93e4e?q=80&w=800",
+          alt: "جهاز تخطيط القلب",
+          category: "equipment" as const
+        }
+      ]
+    }
+  ]
+};
+
+// Copy of the appointment times mock data
 const appointmentTimes: Record<string, AppointmentTime[]> = {
   "2025-05-15": [
     { id: "1", time: "09:00 AM", available: true },
@@ -72,7 +230,7 @@ const appointmentTimes: Record<string, AppointmentTime[]> = {
   ],
 };
 
-// Mock reviews
+// Copy of the reviews mock data
 const reviews = [
   {
     id: "1",
@@ -97,58 +255,6 @@ const reviews = [
   },
 ];
 
-// Mock clinic gallery images
-const clinicImages = [
-  {
-    id: 1,
-    src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=800",
-    alt: "غرفة الكشف الرئيسية",
-    category: "clinic"
-  },
-  {
-    id: 2,
-    src: "https://images.unsplash.com/photo-1629909614822-8f85aef87bc6?q=80&w=800",
-    alt: "غرفة العمليات",
-    category: "clinic"
-  },
-  {
-    id: 3,
-    src: "https://images.unsplash.com/photo-1516549655669-df97abd18791?q=80&w=800",
-    alt: "غرفة الانتظار",
-    category: "clinic"
-  },
-  {
-    id: 4,
-    src: "https://images.unsplash.com/photo-1504439904031-93ded9f93e4e?q=80&w=800",
-    alt: "جهاز تخطيط القلب",
-    category: "equipment"
-  },
-  {
-    id: 5,
-    src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800",
-    alt: "جهاز الأشعة السينية",
-    category: "equipment"
-  },
-  {
-    id: 6,
-    src: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=800",
-    alt: "منظر خارجي للعيادة",
-    category: "clinic"
-  },
-  {
-    id: 7,
-    src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800",
-    alt: "الفريق الطبي",
-    category: "team"
-  },
-  {
-    id: 8,
-    src: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=800",
-    alt: "مساعد الطبيب",
-    category: "team"
-  }
-];
-
 const DoctorDetails = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
@@ -163,6 +269,9 @@ const DoctorDetails = () => {
   const [patientNotes, setPatientNotes] = useState("");
   const [bookingComplete, setBookingComplete] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [selectedClinic, setSelectedClinic] = useState<string | null>(null);
+  
+  const clinics = doctorClinics[id as keyof typeof doctorClinics] || [];
 
   // Return to previous page if doctor not found
   if (!doctor) {
@@ -192,6 +301,15 @@ const DoctorDetails = () => {
   };
 
   const handleBooking = () => {
+    if (!selectedClinic) {
+      toast({
+        title: "اختر عيادة للحجز",
+        description: "يرجى اختيار إحدى عيادات الطبيب للحجز",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!selectedTime) {
       toast({
         title: "اختر وقت للموعد",
@@ -212,9 +330,12 @@ const DoctorDetails = () => {
 
     // In a real app, this would make an API request to book the appointment
     setBookingComplete(true);
+    
+    const clinic = clinics.find(c => c.id === selectedClinic);
+    
     toast({
       title: "تم حجز الموعد بنجاح!",
-      description: `تم تأكيد موعدك مع ${doctor.nameAr} في ${selectedDate} الساعة ${selectedTime}`,
+      description: `تم تأكيد موعدك مع ${doctor.nameAr} في عيادة ${clinic?.name} بتاريخ ${selectedDate} الساعة ${selectedTime}`,
     });
   };
 
@@ -229,6 +350,13 @@ const DoctorDetails = () => {
       dayNum: date.getDate(),
     });
   }
+  
+  // Set default selected clinic if not already set
+  if (clinics.length > 0 && !selectedClinic) {
+    setSelectedClinic(clinics[0].id);
+  }
+  
+  const currentClinic = clinics.find(c => c.id === selectedClinic) || clinics[0];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -263,7 +391,7 @@ const DoctorDetails = () => {
             
             <div className="md:text-center">
               <p className="font-bold text-2xl text-gray-900 mb-1">
-                {doctor.price.toLocaleString()} <span className="text-sm font-normal">د.ع</span>
+                {currentClinic ? currentClinic.price.toLocaleString() : doctor.price.toLocaleString()} <span className="text-sm font-normal">د.ع</span>
               </p>
               <p className="text-gray-500 text-sm mb-3">لكل كشف</p>
               
@@ -283,6 +411,35 @@ const DoctorDetails = () => {
                       </DialogHeader>
                       
                       <div className="mt-4 space-y-6">
+                        {/* Clinic Selection */}
+                        <div>
+                          <h3 className="font-semibold mb-3">اختر العيادة</h3>
+                          <div className="grid grid-cols-1 gap-3">
+                            {clinics.map((clinic) => (
+                              <button
+                                key={clinic.id}
+                                onClick={() => setSelectedClinic(clinic.id)}
+                                className={`flex items-center p-3 rounded-lg border ${
+                                  selectedClinic === clinic.id
+                                    ? "border-medical-primary bg-blue-50"
+                                    : "border-gray-200 hover:border-gray-300 bg-white"
+                                } transition-colors text-right w-full`}
+                              >
+                                <Building className="h-5 w-5 ml-3 text-medical-primary" />
+                                <div className="flex-1">
+                                  <h4 className="font-medium">{clinic.name}</h4>
+                                  <p className="text-sm text-gray-600">{clinic.address}</p>
+                                </div>
+                                <div className="text-left whitespace-nowrap">
+                                  <div className="font-bold text-gray-900">
+                                    {clinic.price.toLocaleString()} <span className="text-xs font-normal">د.ع</span>
+                                  </div>
+                                </div>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        
                         {/* Appointment Type */}
                         <div>
                           <h3 className="font-semibold mb-3">نوع الحجز</h3>
@@ -409,6 +566,14 @@ const DoctorDetails = () => {
                               <span className="text-gray-600">الطبيب:</span>
                               <span className="font-medium">{doctor.nameAr}</span>
                             </div>
+                            {selectedClinic && (
+                              <div className="flex justify-between">
+                                <span className="text-gray-600">العيادة:</span>
+                                <span className="font-medium">
+                                  {clinics.find(c => c.id === selectedClinic)?.name}
+                                </span>
+                              </div>
+                            )}
                             <div className="flex justify-between">
                               <span className="text-gray-600">نوع الحجز:</span>
                               <span className="font-medium">{appointmentType}</span>
@@ -427,7 +592,11 @@ const DoctorDetails = () => {
                             )}
                             <div className="flex justify-between pt-2 border-t">
                               <span className="text-gray-600">الرسوم:</span>
-                              <span className="font-bold">{doctor.price.toLocaleString()} د.ع</span>
+                              <span className="font-bold">
+                                {selectedClinic 
+                                  ? clinics.find(c => c.id === selectedClinic)?.price.toLocaleString()
+                                  : doctor.price.toLocaleString()} د.ع
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -447,7 +616,7 @@ const DoctorDetails = () => {
                       </div>
                       <h2 className="text-2xl font-bold mb-2">تم تأكيد الحجز!</h2>
                       <p className="text-gray-600 mb-6">
-                        تم حجز موعدك بنجاح مع {doctor.nameAr} في {selectedDate} الساعة {selectedTime}
+                        تم حجز موعدك بنجاح مع {doctor.nameAr} في عيادة {clinics.find(c => c.id === selectedClinic)?.name} بتاريخ {selectedDate} الساعة {selectedTime}
                       </p>
                       <div className="bg-gray-50 p-4 rounded-lg mb-6 text-right">
                         <div className="space-y-2">
@@ -464,20 +633,26 @@ const DoctorDetails = () => {
                             <span className="font-medium">{doctor.nameAr}</span>
                           </div>
                           <div className="flex justify-between">
+                            <span className="text-gray-600">العيادة:</span>
+                            <span className="font-medium">
+                              {clinics.find(c => c.id === selectedClinic)?.name}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
                             <span className="text-gray-600">التاريخ والوقت:</span>
                             <span className="font-medium">{selectedDate} - {selectedTime}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600">العيادة:</span>
-                            <span className="font-medium">{doctor.hospitalAr}</span>
-                          </div>
-                          <div className="flex justify-between">
                             <span className="text-gray-600">العنوان:</span>
-                            <span className="font-medium">{doctor.addressAr}</span>
+                            <span className="font-medium">
+                              {clinics.find(c => c.id === selectedClinic)?.address}
+                            </span>
                           </div>
                           <div className="flex justify-between pt-2 border-t">
                             <span className="text-gray-600">رسوم الكشف:</span>
-                            <span className="font-bold">{doctor.price.toLocaleString()} د.ع</span>
+                            <span className="font-bold">
+                              {clinics.find(c => c.id === selectedClinic)?.price.toLocaleString()} د.ع
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -517,15 +692,55 @@ const DoctorDetails = () => {
         <div className="flex flex-col md:flex-row gap-8">
           {/* Main Content */}
           <div className="flex-1">
+            {/* Doctor Clinics Tabs */}
+            <div className="mb-8">
+              <h2 className="text-xl font-bold mb-4">عيادات الدكتور</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {clinics.map((clinic) => (
+                  <Card 
+                    key={clinic.id}
+                    className={`cursor-pointer transition-all ${
+                      selectedClinic === clinic.id 
+                        ? "border-2 border-medical-primary ring-2 ring-blue-100" 
+                        : "hover:border-gray-300"
+                    }`}
+                    onClick={() => setSelectedClinic(clinic.id)}
+                  >
+                    <CardContent className="p-4">
+                      <h3 className="font-bold text-lg">{clinic.name}</h3>
+                      <div className="space-y-2 mt-2">
+                        <div className="flex items-start">
+                          <MapPin className="h-4 w-4 text-gray-500 mt-1 ml-2 flex-shrink-0" />
+                          <span className="text-sm text-gray-600">{clinic.address}</span>
+                        </div>
+                        <div className="flex items-start">
+                          <Clock className="h-4 w-4 text-gray-500 mt-1 ml-2 flex-shrink-0" />
+                          <span className="text-sm text-gray-600">{clinic.workingDays}<br/>{clinic.workingHours}</span>
+                        </div>
+                        <div className="mt-2 pt-2 border-t border-gray-100">
+                          <div className="font-bold text-medical-primary text-lg">
+                            {clinic.price.toLocaleString()} <span className="text-xs font-normal">د.ع</span>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
             <Tabs defaultValue="about">
               <TabsList className="w-full border-b">
                 <TabsTrigger value="about" className="flex-1">نبذة عن الطبيب</TabsTrigger>
+                <TabsTrigger value="clinic-details" className="flex-1">
+                  <Building className="h-4 w-4 ml-1.5" />
+                  تفاصيل العيادة
+                </TabsTrigger>
                 <TabsTrigger value="gallery" className="flex-1">
                   <Images className="h-4 w-4 ml-1.5" />
                   معرض الصور
                 </TabsTrigger>
                 <TabsTrigger value="reviews" className="flex-1">التقييمات</TabsTrigger>
-                <TabsTrigger value="location" className="flex-1">العنوان</TabsTrigger>
               </TabsList>
               
               <TabsContent value="about" className="pt-6">
@@ -600,13 +815,82 @@ const DoctorDetails = () => {
                   </div>
                 </div>
               </TabsContent>
+
+              <TabsContent value="clinic-details" className="pt-6">
+                <div className="space-y-6">
+                  {selectedClinic && (
+                    <div>
+                      <h2 className="text-xl font-bold mb-4">معلومات عن {clinics.find(c => c.id === selectedClinic)?.name}</h2>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                          <div className="flex items-start mb-4">
+                            <MapPin className="h-5 w-5 text-medical-primary mr-2 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <h3 className="font-semibold mb-1">العنوان</h3>
+                              <p className="text-gray-600">
+                                {clinics.find(c => c.id === selectedClinic)?.address}، {clinics.find(c => c.id === selectedClinic)?.location}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start mb-4">
+                            <Clock className="h-5 w-5 text-medical-primary mr-2 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <h3 className="font-semibold mb-1">أيام وساعات العمل</h3>
+                              <p className="text-gray-600">
+                                {clinics.find(c => c.id === selectedClinic)?.workingDays}
+                                <br />
+                                {clinics.find(c => c.id === selectedClinic)?.workingHours}
+                              </p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start mb-4">
+                            <Phone className="h-5 w-5 text-medical-primary mr-2 flex-shrink-0 mt-0.5" />
+                            <div>
+                              <h3 className="font-semibold mb-1">رقم الهاتف</h3>
+                              <p className="text-gray-600">
+                                {clinics.find(c => c.id === selectedClinic)?.phone}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
+                          {/* Placeholder for map */}
+                          <div className="text-center">
+                            <MapPin className="h-10 w-10 text-medical-primary mx-auto mb-2" />
+                            <p className="text-gray-600">خريطة العيادة</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mt-6">
+                        <Button className="bg-medical-primary hover:bg-medical-dark text-white">
+                          <Phone className="h-4 w-4 ml-2" />
+                          اتصل بالعيادة
+                        </Button>
+                        <Button variant="outline" className="border-medical-primary text-medical-primary hover:bg-medical-light mr-3">
+                          <MapPin className="h-4 w-4 ml-2" />
+                          الاتجاهات للعيادة
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
               
               <TabsContent value="gallery" className="pt-6">
                 <div className="space-y-6">
-                  <div>
-                    <h2 className="text-xl font-bold mb-4">معرض صور عيادة {doctor?.nameAr}</h2>
-                    <ClinicGallery images={clinicImages} />
-                  </div>
+                  {selectedClinic && (
+                    <div>
+                      <h2 className="text-xl font-bold mb-4">صور عيادة {clinics.find(c => c.id === selectedClinic)?.name}</h2>
+                      <ClinicGallery 
+                        images={clinics.find(c => c.id === selectedClinic)?.images || []}
+                      />
+                    </div>
+                  )}
                 </div>
               </TabsContent>
               
@@ -693,49 +977,6 @@ const DoctorDetails = () => {
                   </div>
                 </div>
               </TabsContent>
-              
-              <TabsContent value="location" className="pt-6">
-                <div className="space-y-6">
-                  <div>
-                    <h2 className="text-xl font-bold mb-4">عنوان العيادة</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div>
-                        <div className="flex items-start mb-4">
-                          <MapPin className="h-5 w-5 text-medical-primary mr-2 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <h3 className="font-semibold mb-1">{doctor.hospitalAr}</h3>
-                            <p className="text-gray-600">{doctor.addressAr}، {doctor.cityAr}</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start mb-4">
-                          <Phone className="h-5 w-5 text-medical-primary mr-2 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <h3 className="font-semibold mb-1">رقم الهاتف</h3>
-                            <p className="text-gray-600">{doctor.phone}</p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start">
-                          <Mail className="h-5 w-5 text-medical-primary mr-2 flex-shrink-0 mt-0.5" />
-                          <div>
-                            <h3 className="font-semibold mb-1">البريد الإلكتروني</h3>
-                            <p className="text-gray-600">{doctor.email}</p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-                        {/* Placeholder for map */}
-                        <div className="text-center">
-                          <MapPin className="h-10 w-10 text-medical-primary mx-auto mb-2" />
-                          <p className="text-gray-600">خريطة العيادة</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
             </Tabs>
           </div>
           
@@ -745,9 +986,21 @@ const DoctorDetails = () => {
               <CardContent className="pt-6">
                 <h3 className="font-semibold mb-4">حجز موعد سريع</h3>
                 <div className="space-y-4">
+                  {selectedClinic && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-600">العيادة:</span>
+                      <span className="font-bold text-gray-900">
+                        {clinics.find(c => c.id === selectedClinic)?.name}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">رسوم الكشف:</span>
-                    <span className="font-bold text-gray-900">{doctor.price.toLocaleString()} د.ع</span>
+                    <span className="font-bold text-gray-900">
+                      {selectedClinic 
+                        ? clinics.find(c => c.id === selectedClinic)?.price.toLocaleString() 
+                        : doctor.price.toLocaleString()} د.ع
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">مدة الكشف:</span>
