@@ -7,7 +7,10 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { Map } from "@/components/Map";
 import { toast } from "@/components/ui/use-toast";
-import { Compass, MapPin } from "lucide-react";
+import { Compass, MapPin, Filter } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { specialties } from "@/data/mockData";
 
 interface Doctor {
   id: number;
@@ -27,6 +30,8 @@ const LocationSearch = () => {
   const [userLocation, setUserLocation] = useState<{lat: number, lng: number} | null>(null);
   const [loadingLocation, setLoadingLocation] = useState(false);
   const [nearbyDoctors, setNearbyDoctors] = useState<Doctor[]>([]);
+  const [selectedSpecialty, setSelectedSpecialty] = useState<string>("");
+  const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
   
   // Mock data for nearby doctors
   const mockDoctors: Doctor[] = [
@@ -81,6 +86,21 @@ const LocationSearch = () => {
       }
     }
   ];
+
+  useEffect(() => {
+    if (nearbyDoctors.length > 0) {
+      if (selectedSpecialty) {
+        const filtered = nearbyDoctors.filter(doctor => 
+          doctor.specialty === selectedSpecialty || 
+          // Match English specialty names to Arabic ones for demo purpose
+          specialties.some(s => s.nameAr === selectedSpecialty && s.name === doctor.specialty)
+        );
+        setFilteredDoctors(filtered);
+      } else {
+        setFilteredDoctors(nearbyDoctors);
+      }
+    }
+  }, [selectedSpecialty, nearbyDoctors]);
 
   const getUserLocation = () => {
     setLoadingLocation(true);
@@ -142,6 +162,7 @@ const LocationSearch = () => {
       doctorsWithDistance.sort((a, b) => (a.distance || 0) - (b.distance || 0));
       
       setNearbyDoctors(doctorsWithDistance);
+      setFilteredDoctors(doctorsWithDistance);
     });
   };
 
@@ -165,25 +186,52 @@ const LocationSearch = () => {
             اسمح لنا بالوصول إلى موقعك الجغرافي لنساعدك في العثور على أقرب الأطباء إليك
           </p>
           
-          <Button 
-            onClick={getUserLocation}
-            className="mt-6 bg-medical-primary hover:bg-medical-dark"
-            disabled={loadingLocation}
-          >
-            {loadingLocation ? (
-              <span className="flex items-center">جاري تحديد الموقع...</span>
-            ) : (
-              <span className="flex items-center gap-2">
-                <Compass size={18} />
-                حدد موقعي الحالي
-              </span>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-6">
+            <Button 
+              onClick={getUserLocation}
+              className="bg-medical-primary hover:bg-medical-dark w-full md:w-auto"
+              disabled={loadingLocation}
+            >
+              {loadingLocation ? (
+                <span className="flex items-center">جاري تحديد الموقع...</span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  <Compass size={18} />
+                  حدد موقعي الحالي
+                </span>
+              )}
+            </Button>
+            
+            {userLocation && (
+              <div className="w-full md:w-64 mt-2 md:mt-0">
+                <Label htmlFor="specialty-filter" className="sr-only">تصفية حسب التخصص</Label>
+                <Select
+                  value={selectedSpecialty}
+                  onValueChange={setSelectedSpecialty}
+                >
+                  <SelectTrigger id="specialty-filter" className="w-full">
+                    <div className="flex items-center gap-2">
+                      <Filter size={16} />
+                      <SelectValue placeholder="تصفية حسب التخصص" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">جميع التخصصات</SelectItem>
+                    {specialties.map((specialty) => (
+                      <SelectItem key={specialty.id} value={specialty.nameAr}>
+                        {specialty.nameAr}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             )}
-          </Button>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 h-[500px] rounded-lg overflow-hidden shadow-lg">
-            <Map userLocation={userLocation} doctors={nearbyDoctors} />
+            <Map userLocation={userLocation} doctors={filteredDoctors} />
           </div>
           
           <div>
@@ -192,13 +240,18 @@ const LocationSearch = () => {
                 <CardTitle className="flex items-center gap-2">
                   <MapPin size={20} className="text-medical-primary" />
                   الأطباء القريبون منك
+                  {selectedSpecialty && (
+                    <span className="text-sm font-normal bg-medical-light text-medical-primary px-2 py-0.5 rounded-full">
+                      {selectedSpecialty}
+                    </span>
+                  )}
                 </CardTitle>
               </CardHeader>
               
               <CardContent className="h-[400px] overflow-y-auto">
-                {nearbyDoctors.length > 0 ? (
+                {filteredDoctors.length > 0 ? (
                   <div className="space-y-4">
-                    {nearbyDoctors.map((doctor) => (
+                    {filteredDoctors.map((doctor) => (
                       <Card key={doctor.id} className="border border-gray-200 hover:border-medical-primary transition-colors">
                         <CardContent className="p-4">
                           <h3 className="font-semibold text-lg">{doctor.name}</h3>
@@ -224,7 +277,11 @@ const LocationSearch = () => {
                   </div>
                 ) : userLocation ? (
                   <div className="text-center py-12 text-gray-500">
-                    <p>لا يوجد أطباء قريبين من موقعك الحالي</p>
+                    <p>
+                      {selectedSpecialty 
+                        ? `لا يوجد أطباء بتخصص ${selectedSpecialty} قريبين من موقعك` 
+                        : "لا يوجد أطباء قريبين من موقعك الحالي"}
+                    </p>
                   </div>
                 ) : (
                   <div className="text-center py-12 text-gray-500">

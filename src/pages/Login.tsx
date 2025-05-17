@@ -156,7 +156,7 @@ const Login = () => {
                       </Label>
                     </div>
                   </CardContent>
-                  <CardFooter>
+                  <CardFooter className="flex flex-col space-y-4">
                     <Button 
                       type="submit" 
                       className="w-full bg-medical-primary hover:bg-medical-dark"
@@ -164,6 +164,15 @@ const Login = () => {
                     >
                       {loginLoading ? "جاري تسجيل الدخول..." : "تسجيل الدخول"}
                     </Button>
+                    
+                    <div className="text-center">
+                      <p className="text-sm mt-2">
+                        هل أنت طبيب؟{" "}
+                        <Link to="/doctor-login" className="text-medical-primary hover:underline">
+                          سجل دخولك هنا
+                        </Link>
+                      </p>
+                    </div>
                   </CardFooter>
                 </form>
               </Card>
@@ -242,7 +251,7 @@ const Login = () => {
                         </Label>
                       </div>
                     </CardContent>
-                    <CardFooter>
+                    <CardFooter className="flex flex-col space-y-4">
                       <Button 
                         type="submit" 
                         className="w-full bg-medical-primary hover:bg-medical-dark"
@@ -250,6 +259,15 @@ const Login = () => {
                       >
                         {registerLoading ? "جاري إنشاء الحساب..." : "إنشاء حساب"}
                       </Button>
+                      
+                      <div className="text-center">
+                        <p className="text-sm">
+                          هل أنت طبيب؟{" "}
+                          <Link to="/doctor-registration" className="text-medical-primary hover:underline">
+                            سجل كطبيب جديد
+                          </Link>
+                        </p>
+                      </div>
                     </CardFooter>
                   </form>
                 ) : (
