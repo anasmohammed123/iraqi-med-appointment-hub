@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { 
@@ -13,7 +12,8 @@ import {
   ChevronRight, 
   ChevronLeft, 
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  Images
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -33,6 +33,7 @@ import { useToast } from "@/components/ui/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { doctors } from "@/data/mockData";
+import ClinicGallery from "@/components/ClinicGallery";
 
 type AppointmentTime = {
   id: string;
@@ -94,6 +95,58 @@ const reviews = [
     date: "قبل شهرين",
     comment: "من أفضل الأطباء الذين زرتهم. التشخيص كان دقيق والعلاج فعال. أنصح بالتعامل معه.",
   },
+];
+
+// Mock clinic gallery images
+const clinicImages = [
+  {
+    id: 1,
+    src: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=800",
+    alt: "غرفة الكشف الرئيسية",
+    category: "clinic"
+  },
+  {
+    id: 2,
+    src: "https://images.unsplash.com/photo-1629909614822-8f85aef87bc6?q=80&w=800",
+    alt: "غرفة العمليات",
+    category: "clinic"
+  },
+  {
+    id: 3,
+    src: "https://images.unsplash.com/photo-1516549655669-df97abd18791?q=80&w=800",
+    alt: "غرفة الانتظار",
+    category: "clinic"
+  },
+  {
+    id: 4,
+    src: "https://images.unsplash.com/photo-1504439904031-93ded9f93e4e?q=80&w=800",
+    alt: "جهاز تخطيط القلب",
+    category: "equipment"
+  },
+  {
+    id: 5,
+    src: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800",
+    alt: "جهاز الأشعة السينية",
+    category: "equipment"
+  },
+  {
+    id: 6,
+    src: "https://images.unsplash.com/photo-1527613426441-4da17471b66d?q=80&w=800",
+    alt: "منظر خارجي للعيادة",
+    category: "clinic"
+  },
+  {
+    id: 7,
+    src: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=800",
+    alt: "الفريق الطبي",
+    category: "team"
+  },
+  {
+    id: 8,
+    src: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?q=80&w=800",
+    alt: "مساعد الطبيب",
+    category: "team"
+  }
 ];
 
 const DoctorDetails = () => {
@@ -467,6 +520,10 @@ const DoctorDetails = () => {
             <Tabs defaultValue="about">
               <TabsList className="w-full border-b">
                 <TabsTrigger value="about" className="flex-1">نبذة عن الطبيب</TabsTrigger>
+                <TabsTrigger value="gallery" className="flex-1">
+                  <Images className="h-4 w-4 ml-1.5" />
+                  معرض الصور
+                </TabsTrigger>
                 <TabsTrigger value="reviews" className="flex-1">التقييمات</TabsTrigger>
                 <TabsTrigger value="location" className="flex-1">العنوان</TabsTrigger>
               </TabsList>
@@ -540,6 +597,15 @@ const DoctorDetails = () => {
                         </div>
                       ))}
                     </div>
+                  </div>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="gallery" className="pt-6">
+                <div className="space-y-6">
+                  <div>
+                    <h2 className="text-xl font-bold mb-4">معرض صور عيادة {doctor?.nameAr}</h2>
+                    <ClinicGallery images={clinicImages} />
                   </div>
                 </div>
               </TabsContent>
