@@ -212,15 +212,15 @@ const DoctorRegistration = () => {
                 <Tabs defaultValue="arabic" className="w-full">
                   <TabsList className="mb-4 grid w-full grid-cols-3">
                     <TabsTrigger value="arabic" className="flex items-center gap-1">
-                      <Language className="h-4 w-4" />
+                      <Languages size={24} className="text-muted-foreground" />
                       <span>العربية</span>
                     </TabsTrigger>
                     <TabsTrigger value="english" className="flex items-center gap-1">
-                      <Language className="h-4 w-4" />
+                      <Languages size={24} className="text-muted-foreground" />
                       <span>English</span>
                     </TabsTrigger>
                     <TabsTrigger value="kurdish" className="flex items-center gap-1">
-                      <Language className="h-4 w-4" />
+                      <Languages size={24} className="text-muted-foreground" />
                       <span>کوردی</span>
                     </TabsTrigger>
                   </TabsList>

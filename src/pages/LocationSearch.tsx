@@ -33,7 +33,7 @@ const LocationSearch = () => {
       rating: 4.5,
       link: "/doctors/1",
       type: "doctor" as const,
-      consultationTypes: ["video", "phone"],
+      consultationTypes: ["video", "phone"] as ("video" | "phone" | "home")[],
     },
     {
       id: 2,
@@ -44,7 +44,7 @@ const LocationSearch = () => {
       rating: 4.2,
       link: "/hospitals/2",
       type: "hospital" as const,
-      consultationTypes: ["home"],
+      consultationTypes: ["home"] as ("video" | "phone" | "home")[],
     },
     {
       id: 3,
@@ -55,7 +55,7 @@ const LocationSearch = () => {
       rating: 4.8,
       link: "/cosmetic-centers/3",
       type: "center" as const,
-      consultationTypes: ["video"],
+      consultationTypes: ["video"] as ("video" | "phone" | "home")[],
     },
   ];
 

@@ -9,25 +9,84 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Pill, PlusCircle } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 export const PharmacyRequestSection = () => {
   const [open, setOpen] = useState(false);
   const [medicineName, setMedicineName] = useState('');
   const [address, setAddress] = useState('');
   const [notes, setNotes] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would handle the form submission, e.g. send data to an API
-    toast({
-      title: "تم إرسال الطلب",
-      description: "سيتم التواصل معك قريباً من أقرب صيدلية.",
-    });
-    setOpen(false);
-    // Reset form
-    setMedicineName('');
-    setAddress('');
-    setNotes('');
+    
+    if (!medicineName || !address) {
+      toast({
+        title: "يرجى ملء الحقول المطلوبة",
+        description: "اسم الدواء والعنوان مطلوبان.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      // Check if user is authenticated
+      if (!user) {
+        toast({
+          title: "يرجى تسجيل الدخول",
+          description: "يجب عليك تسجيل الدخول لإرسال طلب.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Insert pharmacy request into Supabase
+      const { error } = await supabase
+        .from('pharmacy_requests')
+        .insert([
+          {
+            medicine_name: medicineName,
+            address: address,
+            notes: notes,
+            user_id: user.id,
+            status: 'pending'
+          }
+        ]);
+        
+      if (error) {
+        console.error("Error submitting pharmacy request:", error);
+        toast({
+          title: "حدث خطأ",
+          description: "لم نتمكن من معالجة طلبك. يرجى المحاولة مرة أخرى.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "تم إرسال الطلب",
+          description: "سيتم التواصل معك قريباً من أقرب صيدلية.",
+        });
+        setOpen(false);
+        // Reset form
+        setMedicineName('');
+        setAddress('');
+        setNotes('');
+      }
+    } catch (error) {
+      console.error("Exception:", error);
+      toast({
+        title: "حدث خطأ",
+        description: "لم نتمكن من معالجة طلبك. يرجى المحاولة مرة أخرى.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -94,10 +153,19 @@ export const PharmacyRequestSection = () => {
                           rows={3}
                         />
                       </div>
+                      {!user && (
+                        <div className="p-3 bg-amber-50 border border-amber-200 rounded-md text-sm text-amber-800">
+                          يجب عليك <Link to="/login" className="font-bold underline">تسجيل الدخول</Link> لإرسال طلب
+                        </div>
+                      )}
                     </div>
                     <DialogFooter>
-                      <Button type="submit" className="bg-medical-primary hover:bg-medical-dark">
-                        تأكيد الطلب
+                      <Button 
+                        type="submit" 
+                        className="bg-medical-primary hover:bg-medical-dark"
+                        disabled={isSubmitting || !user}
+                      >
+                        {isSubmitting ? "جاري الإرسال..." : "تأكيد الطلب"}
                       </Button>
                     </DialogFooter>
                   </form>
