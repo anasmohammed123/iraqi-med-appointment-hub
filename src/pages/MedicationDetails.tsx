@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { PageLayout } from "@/components/PageLayout";
@@ -8,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Pill, Pills, AlarmClock, ShieldAlert, ListChecks } from "lucide-react";
+import { Pill, AlarmClock, ShieldAlert, ListChecks } from "lucide-react";
 import { medications, Medication } from "@/data/medicationsData";
 import { toast } from "@/hooks/use-toast";
 
@@ -66,7 +65,13 @@ const MedicationDetails = () => {
   };
 
   if (isLoading) {
-    return <PageLayout isLoading={true} />;
+    return (
+      <PageLayout>
+        <div className="flex items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-medical-primary"></div>
+        </div>
+      </PageLayout>
+    );
   }
 
   if (!medication) {
@@ -199,7 +204,7 @@ const MedicationDetails = () => {
           {medication.requiresPrescription && (
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-6 mb-8">
               <div className="flex items-start gap-4">
-                <Pills size={24} className="text-amber-600 mt-1" />
+                <Pill size={24} className="text-amber-600 mt-1" />
                 <div>
                   <h3 className="font-semibold mb-2">تنبيه: هذا الدواء يتطلب وصفة طبية</h3>
                   <p className="text-gray-600">

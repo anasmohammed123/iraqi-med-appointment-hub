@@ -32,7 +32,7 @@ const LocationSearch = () => {
       images: ["https://placehold.co/300x200/1E88E5/FFFFFF?text=Doctor+A"],
       rating: 4.5,
       link: "/doctors/1",
-      type: "doctor",
+      type: "doctor" as const,
       consultationTypes: ["video", "phone"],
     },
     {
@@ -43,7 +43,7 @@ const LocationSearch = () => {
       images: ["https://placehold.co/300x200/4CAF50/FFFFFF?text=Hospital+B"],
       rating: 4.2,
       link: "/hospitals/2",
-      type: "hospital",
+      type: "hospital" as const,
       consultationTypes: ["home"],
     },
     {
@@ -54,7 +54,7 @@ const LocationSearch = () => {
       images: ["https://placehold.co/300x200/FF9800/FFFFFF?text=Cosmetic+Center+C"],
       rating: 4.8,
       link: "/cosmetic-centers/3",
-      type: "center",
+      type: "center" as const,
       consultationTypes: ["video"],
     },
   ];

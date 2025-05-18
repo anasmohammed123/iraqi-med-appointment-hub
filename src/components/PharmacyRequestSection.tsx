@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Pill, Medicine } from 'lucide-react';
+import { Pill, PlusCircle } from 'lucide-react';
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
@@ -109,7 +109,7 @@ export const PharmacyRequestSection = () => {
           <Card className="hover:shadow-lg transition-all">
             <CardContent className="p-6">
               <div className="flex items-center justify-center mb-6">
-                <Medicine size={48} className="text-medical-primary" />
+                <PlusCircle size={48} className="text-medical-primary" />
               </div>
               <h3 className="text-xl font-semibold text-center mb-4">تصفح الصيدلية الإلكترونية</h3>
               <p className="text-gray-600 text-center mb-6">

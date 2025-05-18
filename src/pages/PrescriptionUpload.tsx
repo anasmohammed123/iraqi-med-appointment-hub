@@ -1,11 +1,10 @@
-
 import React, { useState } from "react";
 import { PageLayout } from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
-import { Pills, Upload, CheckCircle } from "lucide-react";
+import { Pill, Upload, CheckCircle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
 
@@ -158,7 +157,7 @@ const PrescriptionUpload = () => {
                 </div>
 
                 <div className="bg-blue-50 p-4 rounded-lg flex gap-3">
-                  <Pills className="text-blue-600 h-5 w-5 mt-1 flex-shrink-0" />
+                  <Pill className="text-blue-600 h-5 w-5 mt-1 flex-shrink-0" />
                   <p className="text-sm text-blue-800">
                     سيقوم فريقنا بمراجعة الوصفة الطبية والتواصل معك لتأكيد الطلب والسعر قبل التوصيل. نلتزم بالخصوصية التامة لمعلوماتك الطبية.
                   </p>
