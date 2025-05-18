@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { PageLayout } from "@/components/PageLayout";
 import { useToast } from "@/components/ui/use-toast";
@@ -10,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { Upload, File, FileText, Language } from "lucide-react";
+import { Upload, File, FileText, Language, Languages } from "lucide-react";
 import {
   Form,
   FormControl,

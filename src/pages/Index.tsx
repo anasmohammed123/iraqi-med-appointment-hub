@@ -61,7 +61,10 @@ const Index = () => {
       {/* Online Doctors Section */}
       <OnlineDoctorsSection doctors={onlineDoctors} />
       
-      {/* Cosmetic Centers Section - New */}
+      {/* Pharmacy Section */}
+      <PharmacyRequestSection />
+      
+      {/* Cosmetic Centers Section */}
       <CosmeticCentersSection centers={cosmeticCenters} />
       
       {/* Top Medical Centers Section */}
@@ -75,9 +78,6 @@ const Index = () => {
       
       {/* Promos Section */}
       <OffersSection offers={promos} />
-      
-      {/* Pharmacy Request Section */}
-      <PharmacyRequestSection />
       
       {/* App Promo Section */}
       <AppPromoSection />
