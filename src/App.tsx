@@ -28,6 +28,8 @@ import CosmeticCenterDetails from "./pages/CosmeticCenterDetails";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import DoctorRegistration from "./pages/DoctorRegistration";
+import HomeServices from "./pages/HomeServices";
+import HomeServiceDetails from "./pages/HomeServiceDetails";
 
 const queryClient = new QueryClient();
 
@@ -62,6 +64,9 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/about" element={<About />} />
             <Route path="/doctor-registration" element={<DoctorRegistration />} />
+            {/* New routes for home services */}
+            <Route path="/home-services" element={<HomeServices />} />
+            <Route path="/home-services/:id" element={<HomeServiceDetails />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

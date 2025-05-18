@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { LazyImage } from "@/components/ui/lazy-image";
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Video, Phone, Home } from "lucide-react";
+import { Doctor } from "@/data/mockData";
 
 interface MedicalCardProps {
   id: number;
@@ -20,6 +22,7 @@ interface MedicalCardProps {
   type: "hospital" | "center" | "offer" | "doctor";
   additionalInfo?: React.ReactNode;
   className?: string;
+  consultationTypes?: ("video" | "phone" | "home")[];
 }
 
 export const MedicalCard = ({
@@ -34,8 +37,33 @@ export const MedicalCard = ({
   type,
   additionalInfo,
   className,
+  consultationTypes,
 }: MedicalCardProps) => {
   const isMultipleImages = Array.isArray(images) && images.length > 1;
+
+  const renderConsultationTypes = () => {
+    if (!consultationTypes || consultationTypes.length === 0) return null;
+    
+    return (
+      <div className="flex items-center justify-center gap-3 my-2">
+        {consultationTypes.includes("video") && (
+          <div className="flex items-center text-green-600" title="استشارة فيديو">
+            <Video size={18} />
+          </div>
+        )}
+        {consultationTypes.includes("phone") && (
+          <div className="flex items-center text-blue-600" title="استشارة هاتفية">
+            <Phone size={18} />
+          </div>
+        )}
+        {consultationTypes.includes("home") && (
+          <div className="flex items-center text-red-600" title="زيارة منزلية">
+            <Home size={18} />
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <Link to={link} className="block">
@@ -100,6 +128,9 @@ export const MedicalCard = ({
                 ))}
               </div>
             )}
+            
+            {/* Render consultation type indicators */}
+            {renderConsultationTypes()}
             
             {additionalInfo && <div className="mt-2">{additionalInfo}</div>}
             

@@ -24,6 +24,7 @@ export interface Doctor {
   availableDays: string[];
   education: Education[];
   languages: string[];
+  consultationTypes?: ("video" | "phone" | "home")[];  // Added consultation types
 }
 
 export interface Education {
@@ -97,7 +98,8 @@ export const doctors: Doctor[] = [
       { degree: "MD", institution: "University of Baghdad", year: 2002 },
       { degree: "PhD in Cardiology", institution: "Imperial College London", year: 2007 }
     ],
-    languages: ["Arabic", "English"]
+    languages: ["Arabic", "English"],
+    consultationTypes: ["video", "phone"]
   },
   {
     id: "2",
@@ -125,7 +127,8 @@ export const doctors: Doctor[] = [
       { degree: "MB ChB", institution: "Al-Mustansiriya University", year: 2010 },
       { degree: "Fellowship in Pediatrics", institution: "Royal College of Physicians, UK", year: 2015 }
     ],
-    languages: ["Arabic", "English", "Kurdish"]
+    languages: ["Arabic", "English", "Kurdish"],
+    consultationTypes: ["video", "phone", "home"]
   },
   {
     id: "3",
@@ -153,7 +156,8 @@ export const doctors: Doctor[] = [
       { degree: "MB ChB", institution: "University of Basra", year: 2008 },
       { degree: "MS in Orthopedic Surgery", institution: "University of Jordan", year: 2013 }
     ],
-    languages: ["Arabic", "English"]
+    languages: ["Arabic", "English"],
+    consultationTypes: ["home"]
   },
   {
     id: "4",
@@ -181,7 +185,8 @@ export const doctors: Doctor[] = [
       { degree: "MD", institution: "Hawler Medical University", year: 2012 },
       { degree: "Diploma in Dermatology", institution: "American Academy of Dermatology", year: 2016 }
     ],
-    languages: ["Arabic", "English", "Kurdish"]
+    languages: ["Arabic", "English", "Kurdish"],
+    consultationTypes: ["video", "phone"]
   },
   {
     id: "5",
@@ -209,7 +214,8 @@ export const doctors: Doctor[] = [
       { degree: "MB ChB", institution: "University of Kufa", year: 2006 },
       { degree: "Board Certification in Neurology", institution: "Iraqi Board of Medical Specialties", year: 2012 }
     ],
-    languages: ["Arabic", "English"]
+    languages: ["Arabic", "English"],
+    consultationTypes: ["phone"]
   },
   {
     id: "6",
@@ -237,6 +243,7 @@ export const doctors: Doctor[] = [
       { degree: "MB ChB", institution: "University of Mosul", year: 2004 },
       { degree: "Fellowship in Obstetrics and Gynecology", institution: "Royal College of Obstetricians and Gynaecologists, UK", year: 2010 }
     ],
-    languages: ["Arabic", "English"]
+    languages: ["Arabic", "English"],
+    consultationTypes: ["video", "home"]
   }
 ];

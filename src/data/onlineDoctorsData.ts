@@ -4,7 +4,7 @@ export interface OnlineDoctor {
   name: string;
   specialty: string;
   imageUrl: string;
-  availableFor: ("video" | "phone")[];
+  availableFor: ("video" | "phone" | "home")[];
   rating: number;
   price: number;
 }
@@ -33,7 +33,7 @@ export const onlineDoctors: OnlineDoctor[] = [
     name: "د. أحمد العميري",
     specialty: "طب باطني",
     imageUrl: "/placeholder.svg",
-    availableFor: ["phone"],
+    availableFor: ["phone", "home"],
     rating: 4.7,
     price: 45
   },
@@ -42,7 +42,7 @@ export const onlineDoctors: OnlineDoctor[] = [
     name: "د. فاطمة الزهراء",
     specialty: "جلدية",
     imageUrl: "/placeholder.svg",
-    availableFor: ["video", "phone"],
+    availableFor: ["video", "phone", "home"],
     rating: 4.9,
     price: 70
   }

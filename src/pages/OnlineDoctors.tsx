@@ -9,7 +9,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Badge } from "@/components/ui/badge";
 import { LazyImage } from "@/components/ui/lazy-image";
 import { Input } from "@/components/ui/input";
-import { Video, Phone, Search } from "lucide-react";
+import { Video, Phone, Search, Home } from "lucide-react";
 import { onlineDoctors, OnlineDoctor } from '@/data/onlineDoctorsData';
 
 const OnlineDoctors = () => {
@@ -44,7 +44,7 @@ const OnlineDoctors = () => {
       
       // Filter by consultation type
       const matchesConsultType = selectedConsultTypes.length === 0 || 
-                                selectedConsultTypes.some(type => doctor.availableFor.includes(type as "video" | "phone"));
+                                selectedConsultTypes.some(type => doctor.availableFor.includes(type as "video" | "phone" | "home"));
       
       return matchesSearch && matchesSpecialty && matchesConsultType;
     });
@@ -79,7 +79,7 @@ const OnlineDoctors = () => {
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-bold mb-4">استشارات طبية عن بُعد</h1>
             <p className="text-xl text-gray-600 mb-6">
-              تحدث مع طبيب الآن عبر الفيديو أو الهاتف
+              تحدث مع طبيب الآن عبر الفيديو أو الهاتف أو احصل على زيارة منزلية
             </p>
             <div className="relative max-w-md mx-auto">
               <Search className="absolute right-3 top-3 h-5 w-5 text-gray-400" />
@@ -147,6 +147,18 @@ const OnlineDoctors = () => {
                           استشارة هاتفية
                         </span>
                       </label>
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedConsultTypes.includes("home")}
+                          onChange={() => toggleConsultType("home")}
+                          className="rounded text-medical-primary"
+                        />
+                        <span className="flex items-center gap-1">
+                          <Home size={16} className="text-red-600" />
+                          زيارة منزلية
+                        </span>
+                      </label>
                     </div>
                   </div>
                   
@@ -197,6 +209,11 @@ const OnlineDoctors = () => {
                       {doctor.availableFor.includes("phone") && (
                         <div className="flex items-center text-blue-600" title="استشارة هاتفية">
                           <Phone size={18} />
+                        </div>
+                      )}
+                      {doctor.availableFor.includes("home") && (
+                        <div className="flex items-center text-red-600" title="زيارة منزلية">
+                          <Home size={18} />
                         </div>
                       )}
                     </div>

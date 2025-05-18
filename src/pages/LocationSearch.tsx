@@ -7,9 +7,10 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { Map } from "@/components/Map";
 import { toast } from "@/components/ui/use-toast";
-import { Compass, MapPin, Filter } from "lucide-react";
+import { Compass, MapPin, Filter, Video, Phone, Home } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { specialties } from "@/data/mockData";
 
 interface Doctor {
@@ -23,6 +24,7 @@ interface Doctor {
   };
   distance?: number;
   time?: number;
+  consultationTypes?: ("video" | "phone" | "home")[];
 }
 
 const LocationSearch = () => {
@@ -32,6 +34,7 @@ const LocationSearch = () => {
   const [nearbyDoctors, setNearbyDoctors] = useState<Doctor[]>([]);
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>("");
   const [filteredDoctors, setFilteredDoctors] = useState<Doctor[]>([]);
+  const [selectedConsultTypes, setSelectedConsultTypes] = useState<string[]>([]);
   
   // Mock data for nearby doctors
   const mockDoctors: Doctor[] = [
@@ -43,7 +46,8 @@ const LocationSearch = () => {
         lat: 33.315241,
         lng: 44.376904,
         address: "شارع فلسطين، بغداد"
-      }
+      },
+      consultationTypes: ["video", "phone"]
     },
     {
       id: 2,
@@ -53,7 +57,8 @@ const LocationSearch = () => {
         lat: 33.323461,
         lng: 44.394198,
         address: "الكرادة، بغداد"
-      }
+      },
+      consultationTypes: ["video", "phone", "home"]
     },
     {
       id: 3,
@@ -63,7 +68,8 @@ const LocationSearch = () => {
         lat: 33.309565,
         lng: 44.382509,
         address: "المنصور، بغداد"
-      }
+      },
+      consultationTypes: ["home"]
     },
     {
       id: 4,
@@ -73,7 +79,8 @@ const LocationSearch = () => {
         lat: 33.321090,
         lng: 44.375976,
         address: "الجادرية، بغداد"
-      }
+      },
+      consultationTypes: ["video"]
     },
     {
       id: 5,
@@ -83,24 +90,36 @@ const LocationSearch = () => {
         lat: 33.314026,
         lng: 44.363756,
         address: "الحارثية، بغداد"
-      }
+      },
+      consultationTypes: ["phone"]
     }
   ];
 
   useEffect(() => {
     if (nearbyDoctors.length > 0) {
+      let filtered = [...nearbyDoctors];
+      
+      // Filter by specialty
       if (selectedSpecialty) {
-        const filtered = nearbyDoctors.filter(doctor => 
+        filtered = filtered.filter(doctor => 
           doctor.specialty === selectedSpecialty || 
           // Match English specialty names to Arabic ones for demo purpose
           specialties.some(s => s.nameAr === selectedSpecialty && s.name === doctor.specialty)
         );
-        setFilteredDoctors(filtered);
-      } else {
-        setFilteredDoctors(nearbyDoctors);
       }
+      
+      // Filter by consultation types
+      if (selectedConsultTypes.length > 0) {
+        filtered = filtered.filter(doctor => 
+          doctor.consultationTypes && selectedConsultTypes.some(type => 
+            doctor.consultationTypes?.includes(type as "video" | "phone" | "home")
+          )
+        );
+      }
+      
+      setFilteredDoctors(filtered);
     }
-  }, [selectedSpecialty, nearbyDoctors]);
+  }, [selectedSpecialty, nearbyDoctors, selectedConsultTypes]);
 
   const getUserLocation = () => {
     setLoadingLocation(true);
@@ -176,6 +195,14 @@ const LocationSearch = () => {
     return Math.round((latDiff + lngDiff) * 100) / 10;
   };
 
+  const toggleConsultType = (type: string) => {
+    setSelectedConsultTypes(prev => 
+      prev.includes(type) 
+        ? prev.filter(t => t !== type)
+        : [...prev, type]
+    );
+  };
+
   return (
     <PageLayout>
       {isLoading && <PageLoader />}
@@ -203,27 +230,69 @@ const LocationSearch = () => {
             </Button>
             
             {userLocation && (
-              <div className="w-full md:w-64 mt-2 md:mt-0">
-                <Label htmlFor="specialty-filter" className="sr-only">تصفية حسب التخصص</Label>
-                <Select
-                  value={selectedSpecialty}
-                  onValueChange={setSelectedSpecialty}
-                >
-                  <SelectTrigger id="specialty-filter" className="w-full">
-                    <div className="flex items-center gap-2">
-                      <Filter size={16} />
-                      <SelectValue placeholder="تصفية حسب التخصص" />
+              <div className="w-full md:w-auto mt-2 md:mt-0 space-y-2">
+                <div className="flex gap-2 flex-wrap items-center justify-center">
+                  <div>
+                    <Label htmlFor="specialty-filter" className="sr-only">تصفية حسب التخصص</Label>
+                    <Select
+                      value={selectedSpecialty}
+                      onValueChange={setSelectedSpecialty}
+                    >
+                      <SelectTrigger id="specialty-filter" className="w-[200px]">
+                        <div className="flex items-center gap-2">
+                          <Filter size={16} />
+                          <SelectValue placeholder="تصفية حسب التخصص" />
+                        </div>
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="">جميع التخصصات</SelectItem>
+                        {specialties.map((specialty) => (
+                          <SelectItem key={specialty.id} value={specialty.nameAr}>
+                            {specialty.nameAr}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 bg-white px-3 py-2 rounded-md border">
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <Checkbox 
+                        id="video" 
+                        checked={selectedConsultTypes.includes("video")} 
+                        onCheckedChange={() => toggleConsultType("video")} 
+                      />
+                      <Label htmlFor="video" className="flex items-center gap-1 cursor-pointer">
+                        <Video size={16} className="text-green-600" />
+                        <span>فيديو</span>
+                      </Label>
                     </div>
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="">جميع التخصصات</SelectItem>
-                    {specialties.map((specialty) => (
-                      <SelectItem key={specialty.id} value={specialty.nameAr}>
-                        {specialty.nameAr}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                    
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <Checkbox 
+                        id="phone" 
+                        checked={selectedConsultTypes.includes("phone")} 
+                        onCheckedChange={() => toggleConsultType("phone")} 
+                      />
+                      <Label htmlFor="phone" className="flex items-center gap-1 cursor-pointer">
+                        <Phone size={16} className="text-blue-600" />
+                        <span>اتصال</span>
+                      </Label>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                      <Checkbox 
+                        id="home" 
+                        checked={selectedConsultTypes.includes("home")} 
+                        onCheckedChange={() => toggleConsultType("home")} 
+                      />
+                      <Label htmlFor="home" className="flex items-center gap-1 cursor-pointer">
+                        <Home size={16} className="text-red-600" />
+                        <span>زيارة منزلية</span>
+                      </Label>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
@@ -268,6 +337,22 @@ const LocationSearch = () => {
                               </div>
                             )}
                           </div>
+
+                          {/* Show consultation type icons */}
+                          {doctor.consultationTypes && doctor.consultationTypes.length > 0 && (
+                            <div className="flex items-center gap-2 mt-2">
+                              {doctor.consultationTypes.includes("video") && (
+                                <Video size={16} className="text-green-600" title="استشارة فيديو" />
+                              )}
+                              {doctor.consultationTypes.includes("phone") && (
+                                <Phone size={16} className="text-blue-600" title="استشارة هاتفية" />
+                              )}
+                              {doctor.consultationTypes.includes("home") && (
+                                <Home size={16} className="text-red-600" title="زيارة منزلية" />
+                              )}
+                            </div>
+                          )}
+                          
                           <Button variant="outline" className="w-full mt-3 text-xs">
                             عرض الصفحة
                           </Button>
