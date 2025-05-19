@@ -70,14 +70,14 @@ const Pharmacy = () => {
               />
             </div>
             <Select
-              value={selectedCategory || ""}
-              onValueChange={(value) => setSelectedCategory(value || null)}
+              value={selectedCategory || "all"}
+              onValueChange={(value) => setSelectedCategory(value === "all" ? null : value)}
             >
               <SelectTrigger>
                 <SelectValue placeholder="تصفية حسب الفئة" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">جميع الفئات</SelectItem>
+                <SelectItem value="all">جميع الفئات</SelectItem>
                 {medicationCategories.map((category) => (
                   <SelectItem key={category} value={category}>
                     {category}
